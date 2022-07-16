@@ -1,0 +1,19 @@
+Unity打包设置：
+
+  1.Build Setting设置->Export Project勾选
+  2.Project Settings->Player->Other Settings
+  3.Multithreaded Rendering 取消勾选，勾选会导致视频播放问题
+  4.Scripting Backend 选择IL2CPP，未选择会出现Andorid Studio不能编译
+  5.Minimum API Level、 Target API Level、和Android Studio内一致
+  6.Write Permission 选择Externale(SDCar)外部存储
+  7.Project Settings->Player->Resolution and Presentation
+  8.Aspect Ratio Mode 需要与Andorid Studio内一致
+  9.如果工程内使用Odin插件，需要在Odin面板内选择AOT打包，再进行Android工程导出，否则Android Studio编译时出现报错：Odin寻找不到对应属性
+
+导入到Android Studio：
+
+  1.找到导出的文件夹中的unityLibrary文件夹
+  2.以Model的方式导入到Android Studio中
+  3.导入后需要引入Model，修改Gradle设置
+  4.在脚本内引用UnityPlayer
+图片和代码等后期更新，Android Studio方面内容等整理完成后上传
