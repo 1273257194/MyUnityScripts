@@ -1,0 +1,11 @@
+E:\Projects\CCD\Assets\StreamingAssets\UnityHotFix.dll
+E:\Projects\CCD\Assets\StreamingAssets\UnityHotFix.pdb
+E:\Projects\CCD\Assets\HotFix\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.csprojAssemblyReference.cache
+E:\Projects\CCD\Assets\HotFix\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.csproj.CoreCompileInputs.cache
+E:\Projects\CCD\Assets\HotFix\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.dll
+E:\Projects\CCD\Assets\HotFix\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.pdb
+E:\Projects\CCD\Assets\HotFix~\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.csprojAssemblyReference.cache
+E:\Projects\CCD\Assets\HotFix~\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.csproj.CoreCompileInputs.cache
+E:\Projects\CCD\Assets\HotFix~\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.dll
+E:\Projects\CCD\Assets\HotFix~\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.pdb
+E:\Projects\CCD\Assets\HotFix~\UnityHotFix\UnityHotFix\obj\Debug\UnityHotFix.csproj.CopyComplete
