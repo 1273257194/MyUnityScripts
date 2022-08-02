@@ -15,8 +15,11 @@ namespace UnityHotFix
             // var sceneLoad = Activator.CreateInstance(typeof(GameSceneLoad), "A") as SceneLoad;
             // m_sceneLoadDic.Add("A", sceneLoad);
         }
-
-        public void LoadAddressScene(string sceneName)
+        /// <summary>
+        /// 加载本地场景，远程资源时调用
+        /// </summary>
+        /// <param name="sceneName"></param>
+        public void LoadLocalScene(string sceneName)
         {
             if (Activator.CreateInstance(typeof(GameSceneLoad), sceneName) is SceneLoad sceneLoad) sceneLoad.Start();
         }

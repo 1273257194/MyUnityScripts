@@ -1,17 +1,15 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UI; 
-using UnityHotFix.Properties;
+﻿ 
+using UnityEngine.UI;  
 
 namespace UnityHotFix.UI
 {
-    public class LoginPanel : UIPanel
+    public abstract class LoginPanel : UIPanel
     {
-        Button m_loginBtn;
-        InputField m_userNameInput;
+        private Button mLoginBtn;
+        private InputField mUserNameInput;
         private Text buttonText;
 
-        public LoginPanel(string url) : base(url)
+        protected LoginPanel(string url) : base(url)
         {
             viewLayer = ViewLayer.Default;
         }
@@ -19,9 +17,9 @@ namespace UnityHotFix.UI
         public override void Update()
         {
             base.Update();
-            if (m_userNameInput.text != null)
+            if (mUserNameInput.text != null)
             {
-                buttonText.text = m_userNameInput.text;
+                buttonText.text = mUserNameInput.text;
             }
         }
 
@@ -34,15 +32,16 @@ namespace UnityHotFix.UI
         public override void Init()
         {
             base.Init();
-            m_loginBtn = transform.Find("LoginButton").GetComponent<Button>();
-            m_userNameInput = transform.Find("UserNameInputField").GetComponent<InputField>();
-            buttonText = m_loginBtn.GetComponentInChildren<Text>();
-            m_loginBtn.onClick.AddListener(OnClick);
+            mLoginBtn = transform.Find("LoginButton").GetComponent<Button>();
+            mUserNameInput = transform.Find("UserNameInputField").GetComponent<InputField>();
+            buttonText = mLoginBtn.GetComponentInChildren<Text>();
+            mLoginBtn.onClick.AddListener(OnClick);
         }
 
-        void OnClick()
+        private static void OnClick()
         {
             UIPanelManager.instance.ShowPanel<MainPanel>("MainPanel");
+            UIViewManager.instance.ShowView<MenuPanel>();
             UIViewManager.instance.ShowView<MenuPanel>();
         }
     }

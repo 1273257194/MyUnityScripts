@@ -53,7 +53,7 @@ namespace UnityHotFix.UI
 
         private void OkClick()
         { 
-            SceneLoadManager.Instance.LoadAddressScene("A");
+            SceneLoadManager.Instance.LoadLocalScene("A");
             // UIViewManager.instance.ShowView<LoadingView>();
         }
     }

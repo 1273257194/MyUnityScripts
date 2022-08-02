@@ -42,31 +42,25 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
 
     private void FixedUpdate()
     {
-        appDomain.Invoke(fixedUpdateMethod, instance);
+        if (fixedUpdateMethod != null) appDomain.Invoke(fixedUpdateMethod, instance);
     }
 
     private void Update()
     {
-        if (IsGameStart)
-        {
-            appDomain.Invoke(updateMethod, instance);
-        }
+        if (!IsGameStart) return;
+        if (updateMethod != null) appDomain.Invoke(updateMethod, instance);
     }
 
     private void LateUpdate()
     {
-        if (IsGameStart)
-        {
-            appDomain.Invoke(lateUpdateMethod, instance);
-        }
+        if (!IsGameStart) return;
+        if (lateUpdateMethod != null) appDomain.Invoke(lateUpdateMethod, instance);
     }
 
     private void OnDestroy()
     {
-        if (IsGameStart)
-        {
-            appDomain.Invoke(onDestroyMethod, instance);
-        }
+        if (!IsGameStart) return;
+        if (onDestroyMethod != null) appDomain.Invoke(onDestroyMethod, instance);
     }
 
     /// <summary>

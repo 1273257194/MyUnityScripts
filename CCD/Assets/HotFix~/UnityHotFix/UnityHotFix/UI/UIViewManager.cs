@@ -110,7 +110,7 @@ namespace UnityHotFix.UI
                     Debug.LogError("UIPanel not exist: " + url);
                 else
                 {
-                    m_UIViewDic[url] = uiView;
+                    m_UIViewDic[url] = uiView; 
                     Debug.Log($"LoadView URL: {uiView.URL}");
                     uiView.Load(() =>
                     {
@@ -201,9 +201,9 @@ namespace UnityHotFix.UI
         //根据UIPanel的Type获取其对应的url
         string GetUrl(Type t)
         {
-            foreach (var keyPairValue in m_UIViewDic)
-                if (keyPairValue.Key == t.Name)
-                    return keyPairValue.Key;
+            foreach (var pName in panelNames)
+                if (pName == t.Name)
+                    return pName;
             Debug.LogError($"Cannot found type({t.Name})");
             return null;
         }
