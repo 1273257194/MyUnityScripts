@@ -51,13 +51,13 @@ namespace Hotfix
         {
             m_sceneName = sceneName;
             m_loadTaskList = new List<LoadTask>();
-            RegisterAllLoadTask();
             m_totalSceneLoadProgress = 2;
             m_totalProgress = m_loadTaskList.Count + m_totalSceneLoadProgress;
         }
 
         public virtual void Start()
         {
+            RegisterAllLoadTask();
             m_isLoadFinish = false;
             m_loadingView = null;
             taskProgress = 0;
@@ -138,7 +138,7 @@ namespace Hotfix
         private AsyncOperation sceneOperation;
 
         //加载场景
-        public async void LoadScene()
+        private async void LoadScene()
         {
             var clearSceneProgress = Progress.Create<float>((x) =>
             {
@@ -146,9 +146,13 @@ namespace Hotfix
                 UpdateProgress(taskProgress + x);
             });
             // //先跳转空场景，进行内存的清理 
+            Debug.Log(1);
             var clearSceneOperation = SceneManager.LoadSceneAsync("ClearScene", LoadSceneMode.Single);
+            Debug.Log(2);
             var clearTask = clearSceneOperation.ToUniTask(clearSceneProgress);
+            Debug.Log(3);
             await clearTask;
+            Debug.Log(4);
             GC.Collect();
 
             Debug.Log("start load scene: " + m_sceneName);

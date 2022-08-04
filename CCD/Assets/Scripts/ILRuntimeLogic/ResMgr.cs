@@ -11,6 +11,7 @@ using Slotpart.Tools;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 public class panelInfo
@@ -42,6 +43,10 @@ public class ResMgr : MonoSingleton<ResMgr>
         InstantiateOfAddressables();
     }
 
+    public void LoadScene(string name)
+    {
+        SceneManager.LoadSceneAsync(name);
+    }
     /// <summary>
     /// 获取组件
     /// </summary>

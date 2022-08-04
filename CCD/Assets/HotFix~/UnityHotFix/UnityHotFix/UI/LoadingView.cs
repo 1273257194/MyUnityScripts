@@ -16,7 +16,7 @@ namespace UnityHotFix.UI
 
         public override void Init()
         {
-            base.Init();
+            base.Init(); 
             sliderFill = transform.Find("Slider/SliderFill").GetComponent<Image>();
             sliderText = transform.Find("Slider/Text").GetComponent<Text>();
             sliderFill.fillAmount = 0;
@@ -38,7 +38,7 @@ namespace UnityHotFix.UI
         public void SetProgress(float value)
         {
             if (sliderFill != null)
-            { 
+            {
                 sliderFill.fillAmount = value;
             }
 

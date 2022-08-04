@@ -40,6 +40,12 @@ namespace UnityHotFix.Properties
         {
             Debug.Log("Net:OnDestroy!!");
             onDestroy?.Invoke();
+            awake = null;
+            start = null;
+            update = null;
+            onDestroy = null;
+            fixedUpdate = null;
+            lateUpdate = null;
         }
 
         public static void FixedUpdate()

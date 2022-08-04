@@ -32,6 +32,7 @@ namespace UnityHotFix.UI
         public override void Init()
         {
             base.Init();
+             
             mLoginBtn = transform.Find("LoginButton").GetComponent<Button>();
             mUserNameInput = transform.Find("UserNameInputField").GetComponent<InputField>();
             buttonText = mLoginBtn.GetComponentInChildren<Text>();

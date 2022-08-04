@@ -34,7 +34,7 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
 
     public void Awake()
     {
-        base.Awake(); 
+        base.Awake();
         IsGameStart = false;
         m_startUpdate = false;
         appDomain = new ILRuntime.Runtime.Enviorment.AppDomain();
@@ -113,23 +113,22 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
         //appDomain.Invoke("HotFix_Project.InstanceClass", "StaticFunTest", null, null);
         appDomain.DelegateManager.RegisterMethodDelegate<string>();
         appDomain.DelegateManager.RegisterMethodDelegate<float>();
+        appDomain.DelegateManager.RegisterMethodDelegate<AsyncOperationHandle<GameObject>>();
         appDomain.DelegateManager.RegisterFunctionDelegate<bool>();
         appDomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Boolean>();
-
-        appDomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, ILRuntime.Runtime.Intepreter.ILTypeInstance>, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-
+        appDomain.DelegateManager
+            .RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, ILRuntime.Runtime.Intepreter.ILTypeInstance>,
+                ILRuntime.Runtime.Intepreter.ILTypeInstance>();
         appDomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
         appDomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
         {
             return new System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>((obj) =>
             {
-                return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>)act)(obj);
+                return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>) act)(obj);
             });
         });
-
-
-        appDomain.DelegateManager.RegisterMethodDelegate<AsyncOperationHandle<GameObject>>();
         appDomain.RegisterCrossBindingAdaptor(new IAsyncStateMachineClassInheritanceAdaptor());
+        //ILRuntime.Runtime.Generated.CLRBindings.Initialize(appDomain);
         IsGameStart = true;
         //开始调用热更工程
         InitHotFixMethod();

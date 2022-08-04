@@ -27,7 +27,8 @@ namespace UnityHotFix.UI
         public override void Init()
         {
             base.Init();
-            m_UICanvas = GameObject.Find("Canvas").transform;
+              m_UICanvas = GameObject.Find("Canvas").transform;
+            
             m_DefaultPanel = m_UICanvas.transform.Find("DefaultPanel");
             LoadInit();
         }
