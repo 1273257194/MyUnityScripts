@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using ILRuntime.CLR.Method;
 using ILRuntime.CLR.TypeSystem;
+using ILRuntime.ILRuntimeLogic;
 using UnityEngine;
 using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Intepreter;
@@ -18,10 +19,10 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
 
     public AppDomain appDomain;
 
-    public string bindClass;
+    // public string bindClass;
     private IType classType;
     private ILTypeInstance instance;
-    private IMethod updateMethod, fixedUpdateMethod, lateUpdateMethod, awakeMethod, startMethod, onDestroyMethod;
+    public IMethod updateMethod, fixedUpdateMethod, lateUpdateMethod, awakeMethod, startMethod, onDestroyMethod;
 
     private System.IO.MemoryStream m_fs, m_p;
     private bool m_isGameStart, m_startUpdate;
@@ -131,39 +132,39 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
         ILRuntime.Runtime.Generated.CLRBindings.Initialize(appDomain);
         IsGameStart = true;
         //开始调用热更工程
-        InitHotFixMethod();
-
+        //InitHotFixMethod();
+        FindObjectOfType<HotFixBase>().InitHotFixMethod();
         //开始执行热更工程
         //appDomain.Invoke("HotFix_Project.MainBehaviour","Awake",null,null);
     }
 
-    public void InitHotFixMethod()
-    {
-        if (string.IsNullOrEmpty(bindClass))
-        {
-            bindClass = "UnityHotFix.Properties.UnityLogic";
-        }
-
-        Debug.Log(bindClass);
-        if (IsGameStart)
-        {
-            classType = appDomain.LoadedTypes[bindClass];
-            instance = (classType as ILType)?.Instantiate();
-
-            awakeMethod = classType.GetMethod("Awake", 0);
-            startMethod = classType.GetMethod("Start", 0);
-            updateMethod = classType.GetMethod("Update", 0);
-            onDestroyMethod = classType.GetMethod("OnDestroy", 0);
-            fixedUpdateMethod = classType.GetMethod("FixedUpdate", 0);
-            lateUpdateMethod = classType.GetMethod("LateUpdate", 0);
-
-            if (awakeMethod != null)
-            {
-                appDomain.Invoke(awakeMethod, instance);
-            }
-        }
-
-        //开始调用热更工程的start
-        appDomain.Invoke(startMethod, instance);
-    }
+    // public void InitHotFixMethod()
+    // {
+    //     if (string.IsNullOrEmpty(bindClass))
+    //     {
+    //         bindClass = "UnityHotFix.Properties.UnityLogic";
+    //     }
+    //
+    //     Debug.Log(bindClass);
+    //     if (IsGameStart)
+    //     {
+    //         classType = appDomain.LoadedTypes[bindClass];
+    //         instance = (classType as ILType)?.Instantiate();
+    //
+    //         awakeMethod = classType.GetMethod("Awake", 0);
+    //         startMethod = classType.GetMethod("Start", 0);
+    //         updateMethod = classType.GetMethod("Update", 0);
+    //         onDestroyMethod = classType.GetMethod("OnDestroy", 0);
+    //         fixedUpdateMethod = classType.GetMethod("FixedUpdate", 0);
+    //         lateUpdateMethod = classType.GetMethod("LateUpdate", 0);
+    //
+    //         if (awakeMethod != null)
+    //         {
+    //             appDomain.Invoke(awakeMethod, instance);
+    //         }
+    //     }
+    //
+    //     //开始调用热更工程的start
+    //     appDomain.Invoke(startMethod, instance);
+    // }
 }

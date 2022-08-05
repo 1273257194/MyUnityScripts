@@ -24,8 +24,7 @@ public enum LoadingMode
 public class GameLunch : MonoSingleton<GameLunch>
 {
     //public Transform father;
-    [Tooltip("dll文件的加载方式")] public LoadingMode loadingMode = LoadingMode.ByLocalAddressable;
-    public string bindClass;
+    [Tooltip("dll文件的加载方式")] public LoadingMode loadingMode = LoadingMode.ByLocalAddressable; 
     public void Awake()
     {
         base.Awake();
@@ -78,8 +77,7 @@ public class GameLunch : MonoSingleton<GameLunch>
             dll = assetDll.bytes;
             TextAsset assetPdb = await Addressables.LoadAssetAsync<TextAsset>("UnityHotFix_pdb_res").ToUniTask();
             pdb = assetPdb.bytes;
-            ILRuntimeWrapper.Instance.LoadHotFixAssembly(dll, pdb);
-            if (bindClass != null) ILRuntimeWrapper.Instance.bindClass = bindClass;
+            ILRuntimeWrapper.Instance.LoadHotFixAssembly(dll, pdb); 
             ILRuntimeWrapper.Instance.EnterGame();
         }
         // ILRuntimeWrapper.Instance.LoadHotFixAssembly(dll,pdb);
