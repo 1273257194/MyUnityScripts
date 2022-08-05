@@ -1,0 +1,9 @@
+E:\SVNProject\CETS_AD8Hand\Assets\Model\UnityHotFix.dll
+E:\SVNProject\CETS_AD8Hand\Assets\Model\UnityHotFix.pdb
+E:\SVNProject\CETS_AD8Hand\Assets\ILRuntime\HotFix~\UnityHotFix\UnityHotFix\obj\Release\UnityHotFix.csprojAssemblyReference.cache
+E:\SVNProject\CETS_AD8Hand\Assets\ILRuntime\HotFix~\UnityHotFix\UnityHotFix\obj\Release\UnityHotFix.csproj.CoreCompileInputs.cache
+E:\SVNProject\CETS_AD8Hand\Assets\ILRuntime\HotFix~\UnityHotFix\UnityHotFix\obj\Release\UnityHotFix.csproj.CopyComplete
+E:\SVNProject\CETS_AD8Hand\Assets\ILRuntime\HotFix~\UnityHotFix\UnityHotFix\obj\Release\UnityHotFix.dll
+E:\SVNProject\CETS_AD8Hand\Assets\ILRuntime\HotFix~\UnityHotFix\UnityHotFix\obj\Release\UnityHotFix.pdb
+E:\SVNProject\CETS_AD8Hand\HotFixDll\UnityHotFix.dll
+E:\SVNProject\CETS_AD8Hand\HotFixDll\UnityHotFix.pdb
