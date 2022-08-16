@@ -1,2 +1,3 @@
 使用时更改Debug和Release的打包地址
 更改DllToByte的读取文件地址
+使用get set 时报错 原因不明
