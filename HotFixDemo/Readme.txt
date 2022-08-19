@@ -1,3 +1,4 @@
 使用时更改Debug和Release的打包地址
 更改DllToByte的读取文件地址
 使用get set 时报错 原因不明
+生成的GameObject 在其他函数中访问不到，改为静态可以访问，用函数传参未测试，大概率可以使用
