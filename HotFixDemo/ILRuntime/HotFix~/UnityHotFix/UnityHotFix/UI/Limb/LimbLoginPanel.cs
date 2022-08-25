@@ -1,6 +1,7 @@
 ﻿ 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityHotFix.Game.Limb;
 
 namespace UnityHotFix.UI.Limb
 {
@@ -34,7 +35,7 @@ namespace UnityHotFix.UI.Limb
 
         private static void OnClick()
         {
-            Debug.Log("Update !! mBtnClick");
+            Debug.Log("Update !! mBtnClick"); 
         }
     }
 }

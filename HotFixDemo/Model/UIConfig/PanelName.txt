@@ -1,1 +1,4 @@
-[{"panelName":"MainPanel"},{"panelName":"LoginPanel"},{"panelName":"MenuPanel"},{"panelName":"PopupView"},{"panelName":"LoadingView"},{"panelName":"LimbLoginPanel"}]
+[{"panelName":"MainPanel"},{"panelName":"LoginPanel"},{"panelName":"MenuPanel"},{"panelName":"PopupView"},{"panelName":"LoadingView"},{"panelName":"LimbLoginPanel"},{"panelName":"WhiteView"},{"panelName":"PAGamePanel"},{"panelName":"PAOverPanel"}]
+
+   
+        

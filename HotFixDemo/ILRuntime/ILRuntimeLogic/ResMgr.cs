@@ -31,15 +31,14 @@ public class panelInfo
 public class ResMgr : MonoSingleton<ResMgr>
 {
     [SerializeField] public Transform parents;
-    public List<string> loadPool;
+    public List<string> loadPool = new List<string>();
     public Dictionary<string, IType> panels = new Dictionary<string, IType>();
     private string m_names;
 
     public void Awake()
     {
-        base.Awake();
-        loadPool = new List<string>();
-        parents = GameObject.Find("Canvas").transform;
+        base.Awake(); 
+        parents = GameObject.Find("HitFixCanvas").transform;
         InstantiateOfAddressables();
     }
 

@@ -8,6 +8,7 @@ namespace ILRuntime.ILRuntimeLogic
 {
     public abstract class HotFixBase : MonoBehaviour
     {
+        [Title("本场景逻辑功能入口")]
         public string bindClass;
         private AppDomain appDomain;
         private ILRuntimeWrapper ilRuntimeWrapper;
@@ -18,7 +19,7 @@ namespace ILRuntime.ILRuntimeLogic
         public virtual void Init()
         {
             ilRuntimeWrapper = ILRuntimeWrapper.Instance;
-            appDomain = ilRuntimeWrapper.appDomain;
+            appDomain = ilRuntimeWrapper.appdomain;
         }
 
         public virtual void InitHotFixMethod()
@@ -49,6 +50,6 @@ namespace ILRuntime.ILRuntimeLogic
 
             //开始调用热更工程的start
             appDomain.Invoke(ilRuntimeWrapper.startMethod, instance);
-        }
+        } 
     }
 }

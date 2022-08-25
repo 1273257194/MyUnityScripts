@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Slotpart.Tools;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -103,8 +104,10 @@ public class DllToBytes
         Debug.Log("------pdb文件转换结束---------");
         AssetDatabase.Refresh();
     }
-
-    [MenuItem("MyMenu/ILRuntime/DllToByte")]
+    /// <summary>
+    /// 快捷键 Ctrl + ` 
+    /// </summary>
+    [MenuItem("MyMenu/ILRuntime/读取dll生成bytes文件  %_`")]
     public static void DllToByte()
     {
         string dllFilePath = "", pdbFilePath = "", savePath;
@@ -134,10 +137,10 @@ public class DllToBytes
         FileInfo[] fileInfos = directoryInfo.GetFiles();
         for (int i = 0; i < fileInfos.Length; i++)
         {
-            Debug.Log(fileInfos[i].Name);
+            // Debug.Log(fileInfos[i].Name);
             if (!(fileInfos[i].Name.Contains(dllName) || fileInfos[i].Name.Contains(pdbName)))
             {
-                Debug.Log(normalPath+ fileInfos[i].Name);
+                // Debug.Log(normalPath+ fileInfos[i].Name);
                 File.Delete(normalPath+ fileInfos[i].Name);
             }
         }
@@ -161,9 +164,9 @@ public class DllToBytes
     /// </summary>
     /// <param name="path"></param>
     /// <param name="bytes"></param>
-    private static void BytesToFile(string path, byte[] bytes)
+    private static   void BytesToFile(string path, byte[] bytes)
     {
         Debug.Log($"路径为：{path}\nlength:{bytes.Length}");
-        File.WriteAllBytes(path, bytes);
+        File.WriteAllBytes(path, bytes); 
     }
 }

@@ -67,6 +67,7 @@ public class GameLunch : MonoSingleton<GameLunch>
         //string m_url=null;
         byte[] dll = { };
         byte[] pdb = { };
+        Debug.Log("开始读取DLL");
         if (loadingMode == LoadingMode.ByLocalDll)
         {
             //StartCoroutine(CheckHotUpdate(dll,pdb));
@@ -80,6 +81,7 @@ public class GameLunch : MonoSingleton<GameLunch>
             ILRuntimeWrapper.Instance.LoadHotFixAssembly(dll, pdb); 
             ILRuntimeWrapper.Instance.EnterGame();
         }
+        Debug.Log("DLL读取完成");
         // ILRuntimeWrapper.Instance.LoadHotFixAssembly(dll,pdb);
         // ILRuntimeWrapper.Instance.EnterGame();
     }

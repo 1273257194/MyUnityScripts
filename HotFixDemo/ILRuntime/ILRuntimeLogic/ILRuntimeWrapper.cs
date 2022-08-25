@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using System; 
 using System.IO;
 using ILRuntime.CLR.Method;
 using ILRuntime.CLR.TypeSystem;
@@ -11,13 +9,14 @@ using ILRuntime.Runtime.Intepreter;
 using ILRuntimeTest.TestFramework;
 using Slotpart.Tools;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 
 public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
 {
     public Action<string, object> TestActionDelegate;
 
-    public AppDomain appDomain;
+    public AppDomain appdomain;
 
     // public string bindClass;
     private IType classType;
@@ -38,30 +37,30 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
         base.Awake();
         IsGameStart = false;
         m_startUpdate = false;
-        appDomain = new ILRuntime.Runtime.Enviorment.AppDomain();
+        appdomain = new ILRuntime.Runtime.Enviorment.AppDomain();
     }
 
     private void FixedUpdate()
     {
-        if (fixedUpdateMethod != null) appDomain.Invoke(fixedUpdateMethod, instance);
+        if (fixedUpdateMethod != null) appdomain.Invoke(fixedUpdateMethod, instance);
     }
 
     private void Update()
     {
         if (!IsGameStart) return;
-        if (updateMethod != null) appDomain.Invoke(updateMethod, instance);
+        if (updateMethod != null) appdomain.Invoke(updateMethod, instance);
     }
 
     private void LateUpdate()
     {
         if (!IsGameStart) return;
-        if (lateUpdateMethod != null) appDomain.Invoke(lateUpdateMethod, instance);
+        if (lateUpdateMethod != null) appdomain.Invoke(lateUpdateMethod, instance);
     }
 
     private void OnDestroy()
     {
         if (!IsGameStart) return;
-        if (onDestroyMethod != null) appDomain.Invoke(onDestroyMethod, instance);
+        if (onDestroyMethod != null) appdomain.Invoke(onDestroyMethod, instance);
     }
 
     /// <summary>
@@ -75,7 +74,7 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
         m_p = new MemoryStream(pdb);
         try
         {
-            appDomain.LoadAssembly(m_fs, m_p, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
+            appdomain.LoadAssembly(m_fs, m_p, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
         }
         catch
         {
@@ -83,7 +82,7 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
             return;
         }
 
-        appDomain.DebugService.StartDebugService(56000);
+        appdomain.DebugService.StartDebugService(56000);
         InitializeILRuntime();
     }
 
@@ -91,18 +90,78 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
     {
 #if DEBUG && (UNITY_EDITOR || UNITY_ANDROID || UNITY_IPHONE)
         //由于Unity的Profiler接口只允许在主线程使用，为了避免出异常，需要告诉ILRuntime主线程的线程ID才能正确将函数运行耗时报告给Profiler
-        appDomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
+        appdomain.UnityMainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
 #endif
         //这里做一些ILRuntime的注册，HelloWorld示例暂时没有需要注册的
         //Action<string> 的参数为一个string
         Debug.Log("主工程里注册委托");
-        appDomain.DelegateManager.RegisterMethodDelegate<string, object>();
+        appdomain.DelegateManager.RegisterMethodDelegate<string, object>();
 
         //unityAction的委托转换器
-        appDomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
+        appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
         {
             return new UnityEngine.Events.UnityAction(() => { ((Action) act).Invoke(); });
         });
+          LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(appdomain);
+        appdomain.DelegateManager.RegisterMethodDelegate<string>(); 
+        appdomain.DelegateManager.RegisterMethodDelegate<float>();
+        appdomain.DelegateManager.RegisterMethodDelegate<BestHTTP.WebSocket.WebSocket>();
+        appdomain.DelegateManager.RegisterMethodDelegate<AsyncOperationHandle<GameObject>>();
+        appdomain.DelegateManager.RegisterFunctionDelegate<bool>();
+        appdomain.DelegateManager.RegisterMethodDelegate<BestHTTP.WebSocket.WebSocket, System.String>();
+        appdomain.RegisterCrossBindingAdaptor(new IAsyncStateMachineClassInheritanceAdaptor());
+        appdomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Boolean>();
+        appdomain.DelegateManager
+            .RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, ILRuntime.Runtime.Intepreter.ILTypeInstance>,
+                ILRuntime.Runtime.Intepreter.ILTypeInstance>();
+        appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
+        appdomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
+        {
+            return new System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>((obj) =>
+            {
+                return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>) act)(obj);
+            });
+        });  
+        appdomain.DelegateManager.RegisterDelegateConvertor<BestHTTP.WebSocket.OnWebSocketMessageDelegate>((act) =>
+        {
+            return new BestHTTP.WebSocket.OnWebSocketMessageDelegate((webSocket, message) =>
+            {
+                ((Action<BestHTTP.WebSocket.WebSocket, System.String>)act)(webSocket, message);
+            });
+        });
+        appdomain.DelegateManager.RegisterDelegateConvertor<BestHTTP.WebSocket.OnWebSocketErrorDelegate>((act) =>
+        {
+            return new BestHTTP.WebSocket.OnWebSocketErrorDelegate((webSocket, reason) =>
+            {
+                ((Action<BestHTTP.WebSocket.WebSocket, System.String>)act)(webSocket, reason);
+            });
+        });
+        appdomain.DelegateManager.RegisterDelegateConvertor<BestHTTP.WebSocket.OnWebSocketClosedDelegate>((act) =>
+        {
+            return new BestHTTP.WebSocket.OnWebSocketClosedDelegate((webSocket, code, message) =>
+            {
+                ((Action<BestHTTP.WebSocket.WebSocket, System.UInt16, System.String>)act)(webSocket, code, message);
+            });
+        });
+
+        appdomain.DelegateManager.RegisterMethodDelegate<BestHTTP.WebSocket.WebSocket, System.UInt16, System.String>();
+
+        
+        appdomain.DelegateManager.RegisterDelegateConvertor<BestHTTP.WebSocket.OnWebSocketOpenDelegate>((act) =>
+        {
+            return new BestHTTP.WebSocket.OnWebSocketOpenDelegate((webSocket) =>
+            {
+                ((Action<BestHTTP.WebSocket.WebSocket>)act)(webSocket);
+            });
+        }); 
+        appdomain.DelegateManager.RegisterDelegateConvertor<DG.Tweening.TweenCallback>((act) =>
+        {
+            return new DG.Tweening.TweenCallback(() =>
+            {
+                ((Action)act)();
+            });
+        }); 
+         ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
     }
 
     /// <summary>
@@ -112,24 +171,7 @@ public class ILRuntimeWrapper : MonoSingleton<ILRuntimeWrapper>
     {
         //HelloWorld，第一次方法调用
         //appDomain.Invoke("HotFix_Project.InstanceClass", "StaticFunTest", null, null);
-        appDomain.DelegateManager.RegisterMethodDelegate<string>();
-        appDomain.DelegateManager.RegisterMethodDelegate<float>();
-        appDomain.DelegateManager.RegisterMethodDelegate<AsyncOperationHandle<GameObject>>();
-        appDomain.DelegateManager.RegisterFunctionDelegate<bool>();
-        appDomain.DelegateManager.RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, ILRuntime.Runtime.Intepreter.ILTypeInstance>, System.Boolean>();
-        appDomain.DelegateManager
-            .RegisterFunctionDelegate<System.Collections.Generic.KeyValuePair<System.String, ILRuntime.Runtime.Intepreter.ILTypeInstance>,
-                ILRuntime.Runtime.Intepreter.ILTypeInstance>();
-        appDomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>();
-        appDomain.DelegateManager.RegisterDelegateConvertor<System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
-        {
-            return new System.Predicate<ILRuntime.Runtime.Intepreter.ILTypeInstance>((obj) =>
-            {
-                return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Boolean>) act)(obj);
-            });
-        });
-        appDomain.RegisterCrossBindingAdaptor(new IAsyncStateMachineClassInheritanceAdaptor());
-        ILRuntime.Runtime.Generated.CLRBindings.Initialize(appDomain);
+      
         IsGameStart = true;
         //开始调用热更工程
         //InitHotFixMethod();
