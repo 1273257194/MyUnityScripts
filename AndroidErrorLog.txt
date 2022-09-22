@@ -1,5 +1,0 @@
-1.Animation和Animator在安卓和PC的问题
-    控制动画播放进度：
-    功能： 需要在Update内赋值动画播放进度
-    animator.Play("name",0,animatorTime)控制动画播放进度，在PC端运行正常，在安卓端动画停止播放。
-    animation.Play("name",animatorTime)控制动画播放进度，在PC端和安卓端运行正常。但无法控制UV等。
