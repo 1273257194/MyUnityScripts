@@ -1,0 +1,34 @@
+﻿ /// <summary>
+ /// 判断是否在ui上
+ /// </summary>
+ /// <param name="pos">输入的坐标信息(触摸点数据)</param>
+ /// <returns></returns>
+ public bool IsTouchArea(Vector3 pos)
+ {
+     bool isInRect = false;
+     var rect = touchArea.rect;
+     var areaWidth = rect.width; //获取ui的实际宽度
+     var areaHeight = rect.height; //长度
+     Vector2 pos2D = touchArea.position;
+     if (pos.x < (pos2D.x + areaWidth) && pos.x > pos2D.x &&
+         pos.y < (pos2D.y + areaHeight) && pos.y > pos2D.y)
+     {
+         isInRect = true;
+     }
+     return isInRect;
+ }
+ 
+var deltaPos = Input.GetTouch(0).rawPosition;
+var pos = Input.GetTouch(0).deltaPosition;
+if (IsTouchArea(deltaPos))
+{
+    if (isYFilp)
+    {
+        selfTra.Rotate(Vector3.up * (pos.x * speed), Space.World); //绕Y轴进行旋转
+    }
+    else
+    {
+        selfTra.Rotate(Vector3.down * (pos.x * speed), Space.World); //绕Y轴进行旋转
+    }
+}
+RectTransform的pivot设置为（0，0）
