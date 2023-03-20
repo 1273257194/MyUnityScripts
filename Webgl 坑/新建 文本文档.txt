@@ -1,0 +1,1 @@
+AVpro 播放时无反应 编辑器窗口有load按钮，点击后可以播放。 在代码中添加mediaPlayer.OpenVideoFromFile(mediaPlayer.m_VideoLocation, mediaPlayer.m_VideoPath, mediaPlayer.m_AutoStart);

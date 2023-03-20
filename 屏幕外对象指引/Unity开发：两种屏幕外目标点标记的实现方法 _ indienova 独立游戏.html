@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://indienova.com/indie-game-development/unity-off-screen-objective-marker/ -->
+<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" name="viewport">
+
+    <link rel="stylesheet" href="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/stylepack.css" type="text/css">
+                            <link rel="stylesheet" href="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/audioplayer.css" type="text/css">
+                            <link rel="stylesheet" href="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/mediaelementplayer.min.css" type="text/css">
+    
+    <link rel="stylesheet" href="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/indienova-style.css" type="text/css">
+
+    <!-- Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://static.indienova.com/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://static.indienova.com/assets/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://static.indienova.com/assets/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://static.indienova.com/assets/favicon/manifest.json">
+    <link rel="mask-icon" href="https://static.indienova.com/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="apple-mobile-web-app-title" content="indienova">
+    <meta name="application-name" content="indienova">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <div class="fit-vids-style">­<style> .fluid-width-video-wrapper { width: 100%; position: relative; padding: 0; } .fluid-width-video-wrapper iframe, .fluid-width-video-wrapper object, .fluid-width-video-wrapper embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } </style></div><script type="text/javascript" async="" charset="utf-8" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/c.php"></script><script src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/ie10-viewport-bug-workaround.js.下载"></script>
+
+    <!-- External JavaScripts
+    ============================================= -->
+    <script type="text/javascript" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/jquery.js.下载"></script>
+    <script type="text/javascript" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/plugins.js.下载"></script>
+    <script type="text/javascript" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/prettify.js.下载"></script>
+
+            <script async="" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/f.txt" crossorigin="anonymous"></script>
+
+    <!-- Document Title ============================================= -->
+            <title>Unity开发：两种屏幕外目标点标记的实现方法 | indienova 独立游戏</title>
+    
+    
+    <meta name="description" content="indienova 独立游戏 新闻，评测，开发教学, 烽火连城">
+    <meta name="keywords" content="独立游戏 indienova 新闻 评测 开发 教学 烽火连城">
+    <meta name="author" content="indienova 烽火连城">
+</head>
+<body class="stretched no-transition device-lg" data-spy="scroll" data-target=".scrollspy">
+
+    <!-- Document Wrapper ============================================= -->
+    <div id="wrapper" class="clearfix">
+
+            <div class="device-xs visible-xs"></div>
+    <div class="device-sm visible-sm"></div>
+    <div class="device-md visible-md"></div>
+    <div class="device-lg visible-lg"></div>
+            <div id="top-bar">
+
+            <div class="container topline clearfix">
+
+                <div class="col_half nobottommargin">
+
+                    <!-- Top Links
+                    ============================================= -->
+                    <div class="top-links">
+                        <ul class="sf-menu clearfix sf-js-enabled" style="touch-action: pan-y;">
+                            <li>
+                                <a href="https://indienova.com/" class="hidden-xs">首页</a>
+                                <a href="https://indienova.com/" class="visible-xs"><i class="icon-cn-indienova"></i></a>
+                            </li>
+                            <li id="user-block">
+                                                                        <a href="https://indienova.com/get/login" data-lightbox="ajax"><i class="icon-line2-user"></i> 登录／注册</a>
+                                    
+                                                            </li>
+                                                        
+                            <li>
+                                <a href="https://indienova.com/en" class="hidden-xs sf-with-ul">
+                                    <img width="14" height="14" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/gb.svg" alt="English">
+                                    &nbsp; English
+                                <i class="icon-angle-down"></i></a>
+                                <a href="https://indienova.com/en" class="visible-xs sf-with-ul">
+                                    <img width="14" height="14" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/gb.svg" alt="English">
+                                    &nbsp; En
+                                <i class="icon-angle-down"></i></a>
+                                <ul class="topper-list" style="display: none;">
+                                    <li>
+                                        <a href="https://indienova.com/en">
+                                            <img width="14" height="14" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/gb.svg" alt="English">
+                                            English
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://indienova.com/">
+                                            <img width="14" height="14" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/cn.svg" alt="Chinese">
+                                            简体中文
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- .top-links end -->
+
+                </div>
+
+                <div class="col_half fright col_last nobottommargin">
+
+                    <!-- Top Social
+                    ============================================= -->
+                    <div id="top-social">
+                        <ul>
+                            <li><a data-hover-width="104" style="width: 40px;" href="http://weibo.com/indienova" target="new" class="si-weibo"><span class="ts-icon"><i class="icon-cn-weibo"></i></span><span class="ts-text">新浪微博</span></a></li>
+                            <li><a data-hover-width="113" style="width: 40px;" href="https://static.indienova.com/assets/images/QR_WeChat-new.jpg" data-lightbox="image" class="si-wechat"><span class="ts-icon"><i class="icon-cn-wechat"></i></span><span class="ts-text">indienova</span></a></li>
+                            <li><a data-hover-width="297" style="width: 40px;" href="https://static.indienova.com/assets/images/QR_QQ_4.jpg" data-lightbox="image" class="si-qq"><span class="ts-icon"><i class="icon-cn-qq"></i></span><span class="ts-text">QQ 群：714980405（点击查看全部群聊）</span></a></li>
+                            <li><a data-hover-width="104" style="width: 40px;" href="http://zhuanlan.zhihu.com/indienova" target="new" class="si-intensedebate"><span class="ts-icon"><i class="icon-cn-zhihu"></i></span><span class="ts-text">知乎专栏</span></a></li>
+                            <li><a data-hover-width="113" style="width: 40px;" href="https://store.steampowered.com/publisher/indienova" target="new" class="si-appstore"><span class="ts-icon"><i class="icon-steam"></i></span><span class="ts-text">indienova</span></a></li>
+                            <li><a data-hover-width="113" style="width: 40px;" href="https://www.facebook.com/Indienova-1689611754692764/" target="new" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
+                            <li><a data-hover-width="94" style="width: 40px;" href="https://twitter.com/indienovacn" target="new" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
+                            <li><a data-hover-width="187" style="width: 40px;" href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" class="si-email3"><span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text">info(at)indienova.com</span></a></li>
+                        </ul>
+                    </div><!-- #top-social end -->
+
+                </div>
+
+            </div>
+
+        </div>
+    
+    <!-- Header
+    ============================================= -->
+    <header id="header" class="xsticky-header sticky-header">
+
+        <div id="header-wrap">
+
+            <div class="container clearfix">
+
+                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                <!-- Logo
+                ============================================= -->
+                <div id="logo">
+
+                    <a href="https://indienova.com/" class="standard-logo" data-dark-logo="https://static.indienova.com/assets/images/logos/indienova_newdark.png"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/indienova_new.png" alt="indienova"></a>
+                    <a href="https://indienova.com/" class="retina-logo" data-dark-logo="https://static.indienova.com/assets/images/logos/indienova_newdark@2x.png"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/indienova_new@2x.png" alt="indienova"></a>
+
+<!--
+                    <a href="/" class="standard-logo" data-dark-logo="https://static.indienova.com/assets/images/logos/indienova_xmas_dark.png"><img
+                            src="https://static.indienova.com/assets/images/logos/indienova_xmas.png" alt="indienova"></a>
+                    <a href="/" class="retina-logo" data-dark-logo="https://static.indienova.com/assets/images/logos/indienova_xmas_dark@2x.png"><img
+                            src="https://static.indienova.com/assets/images/logos/indienova_xmas@2x.png" alt="indienova"></a>
+-->
+                </div>
+                 <!--#logo end-->
+
+                <!-- Primary Navigation
+                ============================================= -->
+                <nav id="primary-menu" class="sticky-style-2">
+
+                    <ul class="sf-js-enabled" style="touch-action: pan-y;">
+                        <li class="sub-menu">
+                            <a href="https://indienova.com/indie-game-news/" class="sf-with-ul">
+                                <div>文章<i class="icon-caret-down"></i></div>
+                            </a>
+                            <ul style="display: none;">
+                                <li><a href="https://indienova.com/channel/news"><div><i class="icon-note"></i>资讯</div></a></li>
+                                <li><a href="https://indienova.com/channel/game"><div><i class="icon-line2-fire"></i>前瞻</div></a></li>
+                                <li><a href="https://indienova.com/channel/reviews"><div><i class="icon-pen"></i>评测</div></a></li>
+                                <li><a href="https://indienova.com/channel/culture"><div><i class="icon-bulb"></i>漫谈</div></a></li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="https://indienova.com/column" class="sf-with-ul">
+                                <div>专题<i class="icon-caret-down"></i></div>
+                            </a>
+                            <ul style="display: none;">
+
+                                <!--游戏推荐-->
+                                <li class="sub-menu">
+                                    <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" class="sf-with-ul"><div><i class="icon-line-paper-stack"></i> 游戏推荐</div></a>
+                                    <ul style="display: none;">
+                                        <li><a href="https://indienova.com/column/52"><div><i class="icon-line-paper-stack"></i>itch 一周游戏汇</div></a></li>
+                                        <li><a href="https://indienova.com/column/29"><div><i class="icon-line-paper-stack"></i>一周值得关注的发售作品</div></a></li>
+                                        <li><a href="https://indienova.com/column/41"><div><i class="icon-line-paper-stack"></i>诺娃速递</div></a></li>
+                                        <li><a href="https://indienova.com/column/43"><div><i class="icon-line-paper-stack"></i>周末游戏视频集锦</div></a></li>
+                                        <li><a href="https://indienova.com/column/45"><div><i class="icon-line-paper-stack"></i>每月媒体评分</div></a></li>
+                                        <li><a href="https://indienova.com/column/42"><div><i class="icon-line-paper-stack"></i>Apple Arcade</div></a></li>
+                                        <li><a href="https://indienova.com/column/39"><div><i class="icon-line-paper-stack"></i>年度最佳游戏</div></a></li>
+                                        <li><a href="https://indienova.com/column/1"><div><i class="icon-line-paper-stack"></i>Indie Focus 近期新游</div></a></li>
+                                        <li><a href="https://indienova.com/column/8"><div><i class="icon-line-paper-stack"></i>indienova Picks 精选</div></a></li>
+                                    </ul>
+                                </li>
+
+                                <!--游戏评论-->
+                                <li class="sub-menu">
+                                    <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" class="sf-with-ul"><div><i class="icon-line-paper-stack"></i> 游戏评论</div></a>
+                                    <ul style="display: none;">
+                                        <li><a href="https://indienova.com/column/6"><div><i class="icon-line-paper-stack"></i>游必有方 Podcast</div></a></li>
+                                        <li><a href="https://indienova.com/column/3"><div><i class="icon-line-paper-stack"></i>独立游戏潮（RED）</div></a></li>
+                                    </ul>
+                                </li>
+
+
+                                <!--游戏开发专题-->
+                                <li class="sub-menu">
+                                    <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" class="sf-with-ul"><div><i class="icon-line-paper-stack"></i> 游戏开发专题</div></a>
+                                    <ul style="display: none;">
+                                        <li><a href="https://indienova.com/column/15"><div><i class="icon-line-paper-stack"></i>游戏设计模式</div></a></li>
+                                        <li><a href="https://indienova.com/column/14"><div><i class="icon-line-paper-stack"></i>Roguelike 开发</div></a></li>
+                                        <li><a href="https://indienova.com/column/7"><div><i class="icon-line-paper-stack"></i>GMS 中文教程</div></a></li>
+                                    </ul>
+                                </li>
+
+                                <!--游戏设计专题-->
+                                <li class="sub-menu">
+                                    <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" class="sf-with-ul"><div><i class="icon-line-paper-stack"></i> 游戏设计专题</div></a>
+                                    <ul style="display: none;">
+                                        <li><a href="https://indienova.com/column/10"><div><i class="icon-line-paper-stack"></i>游戏与所有</div></a></li>
+                                        <li><a href="https://indienova.com/column/33"><div><i class="icon-line-paper-stack"></i>让人眼前一亮的游戏设计</div></a></li>
+                                        <li><a href="https://indienova.com/column/17"><div><i class="icon-line-paper-stack"></i>游戏音乐分析</div></a></li>
+                                        <li><a href="https://indienova.com/column/4"><div><i class="icon-line-paper-stack"></i>游戏情感设计</div></a></li>
+                                        <li><a href="https://indienova.com/column/22"><div><i class="icon-line-paper-stack"></i>游戏相关书籍</div></a></li>
+                                        <li><a href="https://indienova.com/column/11"><div><i class="icon-line-paper-stack"></i>游戏设计课程笔记</div></a></li>
+                                        <li><a href="https://indienova.com/column/24"><div><i class="icon-line-paper-stack"></i>游戏设计工具</div></a></li>
+                                        <li><a href="https://indienova.com/column/26"><div><i class="icon-line-paper-stack"></i>游戏设计灵感</div></a></li>
+                                        <li><a href="https://indienova.com/column/27"><div><i class="icon-line-paper-stack"></i>设计师谈设计</div></a></li>
+                                        <li><a href="https://indienova.com/column/28"><div><i class="icon-line-paper-stack"></i>游戏研究方法</div></a></li>
+                                        <li><a href="https://indienova.com/column/38"><div><i class="icon-line-paper-stack"></i>功能游戏</div></a></li>
+                                        <li><a href="https://indienova.com/column/9"><div><i class="icon-line-paper-stack"></i>游戏设计专业院校</div></a></li>
+                                        <li><a href="https://indienova.com/column/19"><div><i class="icon-line-paper-stack"></i>像素课堂</div></a></li>
+                                    </ul>
+                                </li>
+
+                                <!--游戏文化专题-->
+                                <li class="sub-menu">
+                                    <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" class="sf-with-ul"><div><i class="icon-line-paper-stack"></i> 游戏文化专题</div></a>
+                                    <ul style="display: none;">
+                                        <li><a href="https://indienova.com/column/23"><div><i class="icon-line-paper-stack"></i>工作室访谈</div></a></li>
+                                        <li><a href="https://indienova.com/column/5"><div><i class="icon-line-paper-stack"></i>indie Figure 游戏人</div></a></li>
+                                        <li><a href="https://indienova.com/column/12"><div><i class="icon-line-paper-stack"></i>Supply 周末补给站</div></a></li>
+                                        <li><a href="https://indienova.com/column/44"><div><i class="icon-line-paper-stack"></i>游戏艺术家</div></a></li>
+                                        <li><a href="https://indienova.com/column/18"><div><i class="icon-line-paper-stack"></i>独立游戏音乐欣赏</div></a></li>
+                                        <li><a href="https://indienova.com/column/21"><div><i class="icon-line-paper-stack"></i>游戏瑰宝</div></a></li>
+                                        <li><a href="https://indienova.com/column/16"><div><i class="icon-line-paper-stack"></i>电脑 RPG 游戏史</div></a></li>
+                                        <li><a href="https://indienova.com/column/2"><div><i class="icon-line-paper-stack"></i>ALT. CTRL. GAMING</div></a></li>
+                                    </ul>
+                                </li>
+
+                                <!--Game Jam-->
+                                <li class="sub-menu">
+                                    <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" class="sf-with-ul"><div><i class="icon-line-paper-stack"></i> Game Jam</div></a>
+                                    <ul style="display: none;">
+                                        <li><a href="https://indienova.com/column/31"><div><i class="icon-line-paper-stack"></i>Ludum Dare</div></a></li>
+                                        <li><a href="https://indienova.com/column/13"><div><i class="icon-line-paper-stack"></i>Global Game Jam</div></a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="https://indienova.com/indie-game-development/" class="sf-with-ul">
+                                <div>开发<i class="icon-caret-down"></i></div>
+                            </a>
+                            <ul style="display: none;">
+                                <li><a href="https://indienova.com/channel/engine"><div><i class="icon-line2-rocket"></i>引擎</div></a></li>
+                                <li><a href="https://indienova.com/channel/design"><div><i class="icon-atom"></i>设计</div></a></li>
+                                <li><a href="https://indienova.com/channel/programming"><div><i class="icon-line2-screen-desktop"></i>编程</div></a></li>
+                                <li><a href="https://indienova.com/channel/software"><div><i class="icon-line2-wrench"></i>工具</div></a></li>
+                                <li><a href="https://indienova.com/sp/gameDevResource"><div><i class="icon-line2-globe"></i>资源</div></a></li>
+                                <li><a href="https://indienova.com/resource"><div><i class="icon-line-box"></i>素材</div></a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="https://indienova.com/usergames" class="sf-with-ul">
+                                <div>游戏<i class="icon-caret-down"></i></div>
+                            </a>
+                            <ul style="display: none;">
+                                <li><a href="https://indienova.com/usergames">
+                                    <div><i class="icon-line2-ghost"></i> 会员开发游戏库</div>
+                                </a></li>
+
+                                <li class="sub-menu">
+                                    <a href="https://indienova.com/gamedb" class="sf-with-ul"><div><i class="icon-cn-pacman"></i> GameDB 游戏库</div></a>
+                                    <ul style="display: none;">
+                                        <li><a href="https://indienova.com/gamedb"><div><i class="icon-cn-pacman"></i> GameDB 游戏库</div></a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/ps5/p/1"><i class="icon-console-ps"></i> PS5</a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/series-x/p/1"><i class="icon-console-xbox"></i> XBOX Series</a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/win/p/1"><i class="icon-platform-win2"></i> Windows</a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/nintendo-switch/p/1"><i class="icon-console-switch"></i> Switch</a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/ps4--1/p/1"><i class="icon-console-ps"></i> PS4</a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/ios/p/1"><i class="icon-platform-mac2"></i> iOS</a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/xboxone/p/1"><i class="icon-console-xbox"></i> XBOX One</a></li>
+                                        <li><a href="https://indienova.com/gamedb/platform/android/p/1"><i class="icon-platform-android2"></i> Android</a></li>
+                                        <!--
+                                        <li><a href="/gamedb/platform/wechat-mini-game/p/1"><i class="icon-cn-wechat"></i> 微信小游戏</a></li>
+                                        <li><a href="/gamedb/platform/3ds/p/1"><i class="icon-console-nintendo"></i> 3DS</a></li>
+                                        <li><a href="/gamedb/platform/psvita/p/1"><i class="icon-console-ps"></i> PS Vita</a></li>-->
+                                    </ul>
+                                </li>
+
+                                <!--
+                                <li>
+                                    <a href="/steam"><div><i class="icon-steam"></i> Steam 独立游戏库</div></a>
+                                    <ul>
+                                        <li><a href="/steam"><div><i class="icon-steam"></i> Steam 独立游戏库</div></a></li>
+                                        <li><a href="/sp/trends"><div><i class="icon-line2-users"></i> 会员 Steam 数据统计</div></a></li>
+                                        <li><a href="/steam/chinese"><div class="text-danger"><i class="icon-steam"></i> 华人 Steam 独立游戏</div></a></li>
+                                        <li><a href="/steam/greenlight"><div class="text-success"><i class="icon-steam"></i> 华人 Steam 绿光列表</div></a></li>
+                                        <li><a href="/steam/recommended"><div><i class="icon-like"></i> 推荐 Steam 游戏</div></a></li>
+                                        <li><a href="/steam/mustbuy"><div><i class="icon-diamond2"></i> 必买 Steam 游戏</div></a></li>
+                                        <li><a href="/corp/steamkey"><div><i class="icon-steam"></i> 免费 Steam Key</div></a></li>
+                                    </ul>
+                                </li>
+                                -->
+
+                                <li><a href="https://indienova.com/corp/ggjgamelist" target="_blank"><div><i class="icon-line2-ghost"></i> GGJ 中国区作品展示</div></a></li>
+                                <li><a href="https://indienova.com/corp/gutenberg" target="_blank"><div><i class="icon-line-globe"></i> 游戏古登堡官中计划</div></a></li>
+                                <li><a href="https://indienova.com/corp/publishing" target="_blank"><div><i class="icon-line-globe"></i> indienova 游戏发行</div></a></li>
+                            </ul>
+                        </li>
+                        <li class="mega-menu"><a href="https://indienova.com/blogs/all"><div>日志</div></a></li>
+                        <li><a href="https://indienova.com/groups"><div>小组</div></a></li>
+                        <li><a href="https://indienova.com/novapress"><div>钥玩<sup class="text-red"><i class="icon-star3"></i></sup></div></a></li>
+                    </ul>
+
+                    <!-- Top Search
+                    ============================================= -->
+                    <div id="top-search">
+                        <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+                                                        <form action="https://indienova.com/search" enctype="application/x-www-form-urlencoded" method="post">
+                                    <input type="text" name="q" class="form-control" value="" placeholder="搜索网站内容关键字 ...">
+                                </form>
+                            
+                                            </div>
+                    <!-- #top-search end -->
+
+                </nav>
+                <!-- #primary-menu end -->
+            </div>
+        </div>
+
+    </header><!-- #header end -->
+        
+        
+        
+        
+        
+        
+        
+        <!-- Content ============================================= -->
+        <section id="content">
+            <div class="content-wrap">
+                <div class="section indienova-title-bg" style="background-image: url(&quot;https://hive.indienova.com/farm/article/headpic/2023/01/head-2869Np-banner.jpg&quot;); background-position: 0% -6061.05px;" data-stellar-background-ratio="2" data-stellar-vertical-offset="185">
+    <div class="container text-center clearfix">
+        <h1 class="big">Unity开发：两种屏幕外目标点标记的实现方法</h1>
+
+        <!-- 文章顶部信息 -->
+        <span class="header-info">作者：<a href="https://indienova.com/u/quin7et">Quin7et <sup><i class="icon-star3"></i></sup></a>
+            <br>2023-01-31<br>
+                            <small>
+                    
+                                                <i class="icon-thumbs-up2"></i> <a href="https://indienova.com/get/login" data-lightbox="ajax" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="点赞"><span class="number-first">16</span></a>
+                        
+                    
+                                                <i class="icon-bookmark-empty"></i> <a href="https://indienova.com/get/login" data-lightbox="ajax" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="收藏"><span class="number-first">13</span></a>
+                        
+                                        <i class="icon-comments-alt"></i> <a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#comments" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="点击查看评论"><span class="number-last">0</span></a>
+                </small>
+            
+            
+        </span>
+        <!-- End of 文章顶部信息 -->
+
+    </div>
+    <div class="overlay"></div>
+</div>
+<div class="container">
+
+    <!-- CONTENT BODY -->
+    <div class="postcontent clearfix indienova-post-content">
+        <article class="clearfix">
+            <div class="single-post indienova-single-post fr-view">
+                <h4 id="iah-0">前言</h4><p>近期在做个人项目的时候，需要实现一个提示目标点位置的标记 UI。本以为是个相对简单的任务，但研究后发现还是有不少隐藏路障。本文将介绍两种不同的屏幕外目标点标记的实现方式，分别对应《守望先锋》及大部分第一人称游戏。</p><p>项目演示链接：<a href="https://github.com/Quin7et/OffScreenObjectiveMarker" rel="noopener noreferrer" target="_blank">https://github.com/Quin7et/OffScreenObjectiveMarker</a></p><h4 id="iah-1">屏幕内标记</h4><p>在 Unity 中，要将 UI 摆放在屏幕内标记的位置十分简单，用 Unity 相机自带的 <code>WorldToScreenPoint()</code>方法即可。一个非常简易的实现如下：</p><pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">ObjectiveMarker</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">MonoBehaviour</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Transform</span><span class="pln"> </span><span class="typ">TargetTransform</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Image</span><span class="pln"> img</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="typ">LateUpdate</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        img</span><span class="pun">.</span><span class="pln">transform</span><span class="pun">.</span><span class="pln">position </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Camera</span><span class="pun">.</span><span class="pln">main</span><span class="pun">.</span><span class="typ">WorldToScreenPoint</span><span class="pun">(</span><span class="typ">TargetTransform</span><span class="pun">.</span><span class="pln">position</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre><p>效果如图：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P011805td.gif" class="fr-fic fr-dib" data-id="26583" data-result="success"></p><div class="text-center image-caption"><small>红色球为目标点，绿色方块为标记</small></div><p>这里的 Canvas 使用的是默认的 Screen Space Overlay，目标点标记用一个 Image 组件表示</p><p><code>WorldToScreenPoint()</code>，顾名思义，输入值为 Vector3 世界坐标，输出为屏幕坐标。左下角为原点，1 单位代表 1 个像素，例如：1920*1080 分辨率下，屏幕中心点的坐标为[960, 540, z]。这里的 <code>z</code> 值是世界坐标到相机平面的距离。注意虽然返回值 1 单位对应 1 像素，但该值不一定是整数。</p><p>一行代码就能实现标记，但存在一个问题：背对目标点的时候，标记也会显示。如下图：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P021835BR.gif" class="fr-fic fr-dib" data-id="26584" data-result="success"></p><p><code>WorldToScreenPoint()</code>的实现基本上可以概括为：将世界空间中的点先转换到相机空间，然后通过投射矩阵转换到模型空间——一个以原点为中心点的 2x2x2 的立方体。来自 unity 论坛的实现如下：</p><p><a href="https://answers.unity.com/questions/1014337/calculation-behind-cameraworldtoscreenpoint.html" rel="noopener noreferrer" target="_blank">https://answers.unity.com/questions/1014337/calculation-behind-cameraworldtoscreenpoint.html</a></p><pre class="prettyprint"><span class="typ">Vector3</span><span class="pln"> manualWorldToScreenPoint</span><span class="pun">(</span><span class="typ">Vector3</span><span class="pln"> wp</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// calculate view-projection matrix</span><span class="pln">
+    </span><span class="typ">Matrix4x4</span><span class="pln"> mat </span><span class="pun">=</span><span class="pln"> cam</span><span class="pun">.</span><span class="pln">projectionMatrix </span><span class="pun">*</span><span class="pln"> cam</span><span class="pun">.</span><span class="pln">worldToCameraMatrix</span><span class="pun">;</span><span class="pln">
+ 
+    </span><span class="com">// multiply world point by VP matrix</span><span class="pln">
+    </span><span class="typ">Vector4</span><span class="pln"> temp </span><span class="pun">=</span><span class="pln"> mat </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Vector4</span><span class="pun">(</span><span class="pln">wp</span><span class="pun">.</span><span class="pln">x</span><span class="pun">,</span><span class="pln"> wp</span><span class="pun">.</span><span class="pln">y</span><span class="pun">,</span><span class="pln"> wp</span><span class="pun">.</span><span class="pln">z</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1f</span><span class="pun">);</span><span class="pln">
+ 
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">w </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0f</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// point is exactly on camera focus point, screen point is undefined</span><span class="pln">
+        </span><span class="com">// unity handles this by returning 0,0,0</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="pln">zero</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// convert x and y from clip space to window coordinates</span><span class="pln">
+        temp</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">x</span><span class="pun">/</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">w </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1f</span><span class="pun">)*.</span><span class="lit">5f</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> cam</span><span class="pun">.</span><span class="pln">pixelWidth</span><span class="pun">;</span><span class="pln">
+        temp</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">y</span><span class="pun">/</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">w </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1f</span><span class="pun">)*.</span><span class="lit">5f</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> cam</span><span class="pun">.</span><span class="pln">pixelHeight</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">(</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">x</span><span class="pun">,</span><span class="pln"> temp</span><span class="pun">.</span><span class="pln">y</span><span class="pun">,</span><span class="pln"> wp</span><span class="pun">.</span><span class="pln">z</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre><p>由于<code>WorldToScreenPoint()</code>并不在乎物体是否在 view frustum 中，不在屏幕上的物体也会被映射。从 projection matrix 可以看出：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-matrix2123NI.jpg_webp" class="fr-fic fr-dib" data-id="26585" data-result="success" style="width: 49.28%;"></p><p>其中注意：</p><pre class="prettyprint"><span class="pln">temp</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">x</span><span class="pun">/</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">w </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1f</span><span class="pun">)*.</span><span class="lit">5f</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> cam</span><span class="pun">.</span><span class="pln">pixelWidth</span><span class="pun">;</span><span class="pln">
+temp</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">y</span><span class="pun">/</span><span class="pln">temp</span><span class="pun">.</span><span class="pln">w </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1f</span><span class="pun">)*.</span><span class="lit">5f</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> cam</span><span class="pun">.</span><span class="pln">pixelHeight</span><span class="pun">;</span></pre><p>这两行将 projection matrix 转换后得到的 <code>x</code>，<code>y</code> 值除以了 <code>w</code> 值（即<code>-z</code>）。这是为了让已经是齐次向量的 <code>temp</code> 落在前述模型空间内。由于除以 <code>z</code> 值将 <code>x</code> 和 <code>y</code> 值的符号反转，上面的动图中可以看到以相机为中心点的中心对称效果。不想要标记在玩家背后出现的话，我们需要就 <code>WorldToScreenPoint()</code>的 <code>z</code> 值做一定处理。一种简单的做法是，在 <code>z</code> 值为负——也就是目标点在相机平面后方的时候，不进行位置更新：</p><pre class="prettyprint"><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">z </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">return</span><span class="pun">;</span></pre><p>这样，屏幕内标记就完成了。</p><h4 id="iah-2">屏幕外标记，方法 1</h4><p>常见的屏幕外标记可以参考下图：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P032314jN.jpg_webp" class="fr-fic fr-dib" data-id="26586" data-result="success"></p><p>注意 UI 边缘的目标点提示。这些目标点均不在相机视野内。标记会根据目标点在视野外的方向调整其在屏幕边缘的位置。同时，标记会呈现在定义好的边界框中，不会覆盖其他 UI 元素。</p><p>有了上一节实现的屏幕内目标点，我们可以试试用<code>Clamp()</code>直接将标记坐标固定在边界框内。此处的 <code>offset</code> 均为像素值。</p><pre class="prettyprint"><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Clamp</span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x</span><span class="pun">,</span><span class="pln"> offsetLeft</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">width </span><span class="pun">-</span><span class="pln"> offsetRight</span><span class="pun">);</span><span class="pln">
+newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Clamp</span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">y</span><span class="pun">,</span><span class="pln"> offsetDown</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">height </span><span class="pun">-</span><span class="pln"> offsetUp</span><span class="pun">);</span></pre><p>看起来似乎工作良好，但在接近边缘时，标记出现了一些奇怪的行为：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P0424001Z.gif" class="fr-fic fr-dib" data-id="26587" data-result="success"></p><div class="text-center image-caption"><small>注意边缘处标记的上下移动</small></div><p>当相机和目标不在同一 y 平面上时，标记似乎会在屏幕边缘先靠近一个角落，再从屏幕对角出现。这是为什么呢？我们可以让相机围绕 y 轴旋转，log 一下 <code>newPos</code> 在 <code>Clamp</code> 前的值：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P052451tv.png_webp" class="fr-fic fr-dib" data-id="26588" data-result="success"></p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P0624584V.png_webp" class="fr-fic fr-dib" data-id="26589" data-result="success"></p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P072465AA.png_webp" class="fr-fic fr-dib" data-id="26590" data-result="success"></p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P0824711p.png_webp" class="fr-fic fr-dib" data-id="26591" data-result="success"></p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P092478VZ.png_webp" class="fr-fic fr-dib" data-id="26592" data-result="success"></p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P102483aT.png_webp" class="fr-fic fr-dib" data-id="26593" data-result="success"></p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P112490th.png_webp" class="fr-fic fr-dib" data-id="26594" data-result="success"></p><p>可以看到，随着相机旋转以及相机平面靠近目标点，<code>z</code> 值越来越小，屏幕投影的值越来越大。上一节提到，转换过程中 <code>x</code> 和 <code>y</code> 值需要除以 <code>w</code>（即<code>-z</code>），当目标点过于接近相机平面，整个向量就需要除以 0。实际上，如果目标点完美处于相机平面上，<code>newPos</code> 将会返回零向量；但实际游戏中，玩家几乎不可能通过操作实现这一情景，所以我们可以不对此进行边缘处理。标记在对角而不是邻角出现（如右下到左上，而不是右下到左下）则是因为 <code>z</code> 值正负的翻转在除以 <code>-z</code> 时转移到了 <code>x</code> 和 <code>y</code>。</p><p>当 <code>x</code> 和 <code>y</code> 过大时，<code>Clamp</code> 就只能将其限制在屏幕的一角，这不是我们想要的。我们想要的效果是，标记在屏幕边缘的位置指向视角需要旋转的方向。注意截图中，即便在接近 90°的位置，<code>x</code> 和 <code>y</code> 依然保持了一个比例。观察下图：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P122554gg.png_webp" class="fr-fic fr-dib" data-id="26595" data-result="success"></p><p>我们希望屏幕边缘的标记经过屏幕中心和目标点屏幕空间坐标的连线，这样它就能正确表示玩家需要移动准星的方向。单纯使用 <code>Clamp</code> 无法达成此效果，需要计算连线和屏幕边缘（限制区边缘）的交点。此处可以使用线段交点算法，但由于限制区的四边都平行于坐标轴，且直线过屏幕中心，用斜率表示法比较直观。</p><pre class="prettyprint"><span class="kwd">private</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pln"> </span><span class="typ">KClamp</span><span class="pun">(</span><span class="typ">Vector3</span><span class="pln"> newPos</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Vector2</span><span class="pln"> center </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pun">(</span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">width </span><span class="pun">/</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">height </span><span class="pun">/</span><span class="pln"> </span><span class="lit">2</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">float</span><span class="pln"> k </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">-</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">-</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">x</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">-</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">y </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">height </span><span class="pun">-</span><span class="pln"> offsetUp</span><span class="pun">;</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">x </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">-</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> k</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">else</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> offsetDown</span><span class="pun">;</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">x </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">-</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">y</span><span class="pun">)</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> k</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&gt;</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">width </span><span class="pun">-</span><span class="pln"> offsetRight</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">width </span><span class="pun">-</span><span class="pln"> offsetRight</span><span class="pun">;</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">y </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">-</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">x</span><span class="pun">)</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> k</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">else</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&lt;</span><span class="pln"> offsetLeft</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">=</span><span class="pln"> offsetLeft</span><span class="pun">;</span><span class="pln">
+        newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">=</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">y </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">-</span><span class="pln"> center</span><span class="pun">.</span><span class="pln">x</span><span class="pun">)</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> k</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">return</span><span class="pln"> newPos</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre><p>上述方法将任意点根据坐标与准星的相对方向限制在定义的边界框上。注意 <code>offset</code> 的值不要超过屏幕中心，因为该方法也会将边界框内部的点强行外推。此外，该方法仅在标记应该处在屏幕外的情况下使用。</p><p>现在来解决目标点在屏幕平面后方的情况。上文提到在 <code>z=0</code> 时，<code>x</code> 和 <code>y</code> 值会翻转。一个绕过该问题的简单方法是，检测到目标在屏幕后时，将目标点投射到屏幕平面前方：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P132651r9.png_webp" class="fr-fic fr-dib" data-id="26596" data-result="success"></p><pre class="prettyprint"><span class="typ">Vector3</span><span class="pln"> delta </span><span class="pun">=</span><span class="pln"> </span><span class="typ">TargetTransform</span><span class="pun">.</span><span class="pln">position </span><span class="pun">-</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">position</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">float</span><span class="pln"> dot </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="typ">Dot</span><span class="pun">(</span><span class="pln">camTransform</span><span class="pun">.</span><span class="pln">forward</span><span class="pun">,</span><span class="pln"> delta</span><span class="pun">);</span><span class="pln">
+
+</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">dot </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Vector3</span><span class="pln"> projectedPos </span><span class="pun">=</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">position </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="pln">delta </span><span class="pun">-</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">forward </span><span class="pun">*</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="typ">Dot</span><span class="pun">(</span><span class="pln">camTransform</span><span class="pun">.</span><span class="pln">forward</span><span class="pun">,</span><span class="pln"> delta</span><span class="pun">)</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="lit">1.01f</span><span class="pun">);</span><span class="pln">
+    newPos </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Camera</span><span class="pun">.</span><span class="pln">main</span><span class="pun">.</span><span class="typ">WorldToScreenPoint</span><span class="pun">(</span><span class="pln">projectedPos</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">else</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    newPos </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Camera</span><span class="pun">.</span><span class="pln">main</span><span class="pun">.</span><span class="typ">WorldToScreenPoint</span><span class="pun">(</span><span class="typ">TargetTransform</span><span class="pun">.</span><span class="pln">position</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre><p>检测目标点是否在屏幕后方也可以用屏幕空间坐标的 <code>z</code> 值或者相机空间坐标的 <code>z</code> 值，不过，因为投射本身会用到点积，这里复用了点积的值，减少一次 <code>WorldToScreenPoint()</code>调用。</p><p>最终效果见下图：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P142705H9.gif" class="fr-fic fr-dib" data-id="26597" data-result="success"></p><h4 id="iah-3">屏幕外标记，方法 2</h4><p>方法 1 较为常见，采用此方法的游戏包括《战地 2042》《彩虹六号：围攻》《使命召唤：现代战争》《耻辱》等许多第一人称游戏。但这种一定程度上近似表示准星最短移动路径的标记，可能更适合 3 轴旋转的飞行模拟游戏，而不是 2 轴旋转、且仰角固定在-90°~90°之间的第一人称游戏。</p><p>例如，在完全背对目标点时，标记可能处于屏幕上边缘或下边缘，但第一人称角色抬头或低头受限，仍然需要水平旋转镜头才能看到后方，而飞行类游戏则可以通过不受限的俯仰直接瞄准目标点。</p><p>《守望先锋 2》的标记则为第一人称游戏进行了特化。背对目标点时，标记的 y 坐标也会忠实表示准星需要处于的仰角，而不会游离在屏幕上下边缘。</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P152721t6.gif" class="fr-fic fr-dib" data-id="26598" data-result="success"></p><p>要实现这一行为，我们需要一种新的投射方式。既然处于同一以相机为起点的射线上的坐标，其透视变换后的屏幕坐标都相同，那么我们可以直接根据目标点与相机的角度，将目标点标准化为角度相同的单位向量，然后根据需求来限定角度的范围。</p><pre class="prettyprint"><span class="kwd">private</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="typ">Method2</span><span class="pun">()</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="typ">Transform</span><span class="pln"> camTransform </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Camera</span><span class="pun">.</span><span class="pln">main</span><span class="pun">.</span><span class="pln">transform</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">var</span><span class="pln"> vFov </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Camera</span><span class="pun">.</span><span class="pln">main</span><span class="pun">.</span><span class="pln">fieldOfView</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">var</span><span class="pln"> radHFov </span><span class="pun">=</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Atan</span><span class="pun">(</span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Tan</span><span class="pun">(</span><span class="pln">vFov </span><span class="pun">*</span><span class="pln"> </span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Deg2Rad</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="typ">Camera</span><span class="pun">.</span><span class="pln">main</span><span class="pun">.</span><span class="pln">aspect</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">var</span><span class="pln"> hFov </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Rad2Deg</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> radHFov</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="typ">Vector3</span><span class="pln"> deltaUnitVec </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">TargetTransform</span><span class="pun">.</span><span class="pln">position </span><span class="pun">-</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">position</span><span class="pun">).</span><span class="pln">normalized</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="com">/* How the angles work:
+     * vdegobj: objective vs xz plane (horizontal plane). Upright = -90, straight down = 90.
+     * vdegcam: camera forward vs xz plane. same as above.
+     * vdeg: obj -&gt; cam. if obj is higher, value is negative.
+     */</span><span class="pln">
+
+    </span><span class="kwd">float</span><span class="pln"> vdegobj </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="typ">Angle</span><span class="pun">(</span><span class="typ">Vector3</span><span class="pun">.</span><span class="pln">up</span><span class="pun">,</span><span class="pln"> deltaUnitVec</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-</span><span class="pln"> </span><span class="lit">90f</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">float</span><span class="pln"> vdegcam </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="typ">SignedAngle</span><span class="pun">(</span><span class="typ">Vector3</span><span class="pun">.</span><span class="pln">up</span><span class="pun">,</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">forward</span><span class="pun">,</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">right</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-</span><span class="pln"> </span><span class="lit">90f</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">float</span><span class="pln"> vdeg </span><span class="pun">=</span><span class="pln"> vdegobj </span><span class="pun">-</span><span class="pln"> vdegcam</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">float</span><span class="pln"> hdeg </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="typ">SignedAngle</span><span class="pun">(</span><span class="typ">Vector3</span><span class="pun">.</span><span class="typ">ProjectOnPlane</span><span class="pun">(</span><span class="pln">camTransform</span><span class="pun">.</span><span class="pln">forward</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="pln">up</span><span class="pun">),</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="typ">ProjectOnPlane</span><span class="pun">(</span><span class="pln">deltaUnitVec</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="pln">up</span><span class="pun">),</span><span class="pln"> </span><span class="typ">Vector3</span><span class="pun">.</span><span class="pln">up</span><span class="pun">);</span><span class="pln">
+
+    vdeg </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Clamp</span><span class="pun">(</span><span class="pln">vdeg</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">89f</span><span class="pun">,</span><span class="pln"> </span><span class="lit">89f</span><span class="pun">);</span><span class="pln">
+    hdeg </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Mathf</span><span class="pun">.</span><span class="typ">Clamp</span><span class="pun">(</span><span class="pln">hdeg</span><span class="pun">,</span><span class="pln"> hFov </span><span class="pun">*</span><span class="pln"> </span><span class="pun">-</span><span class="lit">0.5f</span><span class="pun">,</span><span class="pln"> hFov </span><span class="pun">*</span><span class="pln"> </span><span class="lit">0.5f</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="typ">Vector3</span><span class="pln"> projectedPos </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Quaternion</span><span class="pun">.</span><span class="typ">AngleAxis</span><span class="pun">(</span><span class="pln">vdeg</span><span class="pun">,</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">right</span><span class="pun">)</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="typ">Quaternion</span><span class="pun">.</span><span class="typ">AngleAxis</span><span class="pun">(</span><span class="pln">hdeg</span><span class="pun">,</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">up</span><span class="pun">)</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">forward</span><span class="pun">;</span><span class="pln">
+    </span><span class="typ">Debug</span><span class="pun">.</span><span class="typ">DrawLine</span><span class="pun">(</span><span class="pln">camTransform</span><span class="pun">.</span><span class="pln">position</span><span class="pun">,</span><span class="pln"> camTransform</span><span class="pun">.</span><span class="pln">position </span><span class="pun">+</span><span class="pln"> projectedPos</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Color</span><span class="pun">.</span><span class="pln">red</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="typ">Vector3</span><span class="pln"> newPos </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Camera</span><span class="pun">.</span><span class="pln">main</span><span class="pun">.</span><span class="typ">WorldToScreenPoint</span><span class="pun">(</span><span class="pln">camTransform</span><span class="pun">.</span><span class="pln">position </span><span class="pun">+</span><span class="pln"> projectedPos</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&gt;</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">width </span><span class="pun">-</span><span class="pln"> offsetRight </span><span class="pun">||</span><span class="pln"> newPos</span><span class="pun">.</span><span class="pln">x </span><span class="pun">&lt;</span><span class="pln"> offsetLeft </span><span class="pun">||</span><span class="pln"> newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">&gt;</span><span class="pln"> </span><span class="typ">Screen</span><span class="pun">.</span><span class="pln">height </span><span class="pun">-</span><span class="pln"> offsetUp </span><span class="pun">||</span><span class="pln"> newPos</span><span class="pun">.</span><span class="pln">y </span><span class="pun">&lt;</span><span class="pln"> offsetDown</span><span class="pun">)</span><span class="pln">
+        newPos </span><span class="pun">=</span><span class="pln"> </span><span class="typ">KClamp</span><span class="pun">(</span><span class="pln">newPos</span><span class="pun">);</span><span class="pln">
+
+    img</span><span class="pun">.</span><span class="pln">transform</span><span class="pun">.</span><span class="pln">position </span><span class="pun">=</span><span class="pln"> newPos</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre><p>此方法中，水平和垂直角度，分别是相机朝向与目标点朝向在世界 xz 平面和相机 yz 平面上的差值，依此投影出的目标点即可忠实地反映玩家准星需要进行的移动。效果如下图：</p><p><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/pic-P162806NY.gif" class="fr-fic fr-dib" data-id="26599" data-result="success"></p><h4 id="iah-4">结语</h4><p>以上就是本文介绍的两种屏幕外标记的实现方式。不同游戏在实现上会有些许不同，如《幽灵行动：断点》的标记限定范围使用的是椭圆而不是长方形（解出交点坐标即可实现），但基本原理几乎均为上文介绍的第一种方法。《守望先锋 2》属于少见的例外，不过由于其实现方式更符合（2 轴旋转）第一人称视角游戏的操作直觉，笔者认为有价值复现。</p><p>欢迎探讨！</p><p><br></p><hr><p><small>封面：自制</small><br><small>*本文内容系作者独立观点，不代表 indienova 立场。未经授权允许，请勿转载。</small></p>
+            </div>
+        </article>
+    </div>
+
+    <!-- CONTENT SIDEBAR -->
+            <div class="sidebar col_last blog-sidebar">
+            <div id="side-title-image" class="hidden-xs hidden-sm hidden-ms">
+                <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-2869Np-banner.jpg" class="title-image img-responsive">
+            </div><div class="scrollspy"><ul id="indienova-header-list" class="nav hidden-xs hidden-sm hidden-ms affix" data-spy="affix"><li><a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#iah-0" title="前言">前言</a></li><li><a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#iah-1" title="屏幕内标记">屏幕内标记</a></li><li class="active"><a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#iah-2" title="屏幕外标记，方法 1">屏幕外标记，方法 1</a></li><li class=""><a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#iah-3" title="屏幕外标记，方法 2">屏幕外标记，方法 2</a></li><li><a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#iah-4" title="结语">结语</a></li><li><a href="https://indienova.com/indie-game-development/unity-off-screen-objective-marker/#comments" title="直接查看文章评论"><i class="icon-chat-2"></i> 文章评论</a></li><li></li></ul></div>
+        </div>
+    </div>
+
+<div id="indienova-misc">
+
+    <!-- 评价 -->
+    
+    <div class="container">
+        <div class="postcontent clearfix indienova-post-content">
+
+            
+                <!-- 赞和收藏 -->
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-md-1"></div>
+
+                    <div class="col-xs-12 col-md-10">
+
+                        <div class="col_half">
+                            <div class="article-action">
+                                <a href="https://indienova.com/get/login" data-lightbox="ajax" class="thumb-vote" data-id="8498" data-type="5" data-path="/indie-game-development/unity-off-screen-objective-marker/" data-title="Unity开发：两种屏幕外目标点标记的实现方法">
+                                    <div class="icon"><i class="icon-thumbs-up"></i></div>
+                                    <div class="info">赞这篇文章</div>
+                                    <div class="count">16</div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col_half col_last">
+                            <div class="article-action">
+                                <a href="https://indienova.com/get/login" data-lightbox="ajax" class="fav-vote" data-id="8498" data-type="1" data-path="/indie-game-development/unity-off-screen-objective-marker/" data-title="Unity开发：两种屏幕外目标点标记的实现方法">
+                                    <div class="icon"><i class="icon-bookmark-empty"></i></div>
+                                    <div class="info">收藏这篇文章</div>
+                                    <div class="count">13</div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-12 col-md-1"></div>
+                </div>
+                <!-- End of 赞和收藏 -->
+
+            
+            <!-- 投稿 -->
+            
+            <!-- 点赞会员 -->
+                            <div class="liked-users-holder">
+                    <h4>近期点赞的会员</h4>
+                    <div class="icons">
+                                                    <a href="https://indienova.com/u/wx-oHXAkwkvUuuop_a3vkMvnlA3kZPw" class="" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="Erea1"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/wbHinK-1675653667x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/94kun" class="" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="Neo S&amp;H"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/9d7fe7906aabebb99ff120c7db6b1978" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/tantonxhx" class="" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="π"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/214x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/%25E9%259B%25BE%25E6%2595%25A3%25E8%258A%25B1%25E5%25BC%2580" class="" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="雾散花开"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/6bb072cd1f88695e16b26daff9524d94" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/rein1x" class="" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="游小熊"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/a-9856290-NXq900cq1x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                            <a href="javascript:void(0);" id="moreLikedUsers" title="查看全部"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/more.png" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/licheegames045" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="Lichee’s游戏工作室"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/a-0193862-dQwZOst3x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/wj815606133" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="PasserA"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/a-1450443-x4Lw3Yujx300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/thirtythree" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="ThirtyThree"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/a-4800104-kQamPTUgx300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/demgel" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="Demgel"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/94047-1515381626x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/mioku" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="mioku"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/744aecd7d1d0a9972a9212c95c921c53" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/owlbaby" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="OwlBaby"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/97739feaac6ae8dcb6b50061e86f3b86" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/lepozuk" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="荷叶"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/0QZ4Hk-1556270566x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/visual" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="绝了！"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/yDbDF8-1595155086x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/steam" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="Steamer"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/292x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/virmint" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="virmint"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/11439-1504317228x300.jpg_rect200" class="img-circle" width="40" height="40"></a>
+                                                                                <a href="https://indienova.com/u/soundscape" class="hidden-user" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="自来狗"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/0c4061db0796380f831e8edcc31e5398" class="img-circle" width="40" height="40"></a>
+                                                                        </div>
+                    <div class="clearfix"></div>
+                </div>
+            
+            <!-- 相关 GameDB 游戏 -->
+            
+            <!-- 分享 -->
+                            <div class="si-share clearfix">
+                    <span><i class="icon-share"></i> &nbsp;分享这篇文章</span>
+                    <div>
+                        <a href="http://service.weibo.com/share/share.php?title=Unity%E5%BC%80%E5%8F%91%EF%BC%9A%E4%B8%A4%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%A4%96%E7%9B%AE%E6%A0%87%E7%82%B9%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%EF%BC%9A%E6%9C%AC%E6%96%87%E5%B0%86%E4%BB%8B%E7%BB%8D%E4%B8%A4%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E5%B1%8F%E5%B9%95%E5%A4%96%E7%9B%AE%E6%A0%87%E7%82%B9%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%88%86%E5%88%AB%E5%AF%B9%E5%BA%94%E3%80%8A%E5%AE%88%E6%9C%9B%E5%85%88%E9%94%8B%E3%80%8B%E5%8F%8A%E5%A4%A7%E9%83%A8%E5%88%86%E7%AC%AC%E4%B8%80%E4%BA%BA%E7%A7%B0%E6%B8%B8%E6%88%8F%E3%80%82&amp;url=https://indienova.com/indie-game-development/unity-off-screen-objective-marker/" class="social-icon si-borderless si-weibo" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="分享到新浪微博">
+                            <i class="icon-cn-weibo"></i><i class="icon-cn-weibo"></i>
+                        </a>
+                        <a href="https://indienova.com/inc/qr.php?url=https://indienova.com/indie-game-development/unity-off-screen-objective-marker/" data-lightbox="image" class="social-icon si-borderless si-wechat" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="分享到微信">
+                            <i class="icon-cn-wechat"></i><i class="icon-cn-wechat"></i>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://indienova.com/indie-game-development/unity-off-screen-objective-marker/" class="social-icon si-borderless si-facebook" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="分享到 Facebook">
+                            <i class="icon-facebook"></i><i class="icon-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?source=webclient&amp;original_referer=https://indienova.com/indie-game-development/unity-off-screen-objective-marker/&amp;text=Unity%E5%BC%80%E5%8F%91%EF%BC%9A%E4%B8%A4%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%A4%96%E7%9B%AE%E6%A0%87%E7%82%B9%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%EF%BC%9A%E6%9C%AC%E6%96%87%E5%B0%86%E4%BB%8B%E7%BB%8D%E4%B8%A4%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E5%B1%8F%E5%B9%95%E5%A4%96%E7%9B%AE%E6%A0%87%E7%82%B9%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%88%86%E5%88%AB%E5%AF%B9%E5%BA%94%E3%80%8A%E5%AE%88%E6%9C%9B%E5%85%88%E9%94%8B%E3%80%8B%E5%8F%8A%E5%A4%A7%E9%83%A8%E5%88%86%E7%AC%AC%E4%B8%80%E4%BA%BA%E7%A7%B0%E6%B8%B8%E6%88%8F%E3%80%82&amp;url=https://indienova.com/indie-game-development/unity-off-screen-objective-marker/&amp;related=indienovacn&amp;via=indienovacn" class="social-icon si-borderless si-twitter" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="分享到 Twitter">
+                            <i class="icon-twitter"></i><i class="icon-twitter"></i>
+                        </a>
+                        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;ro=true&amp;trk=indienovaPostSharer&amp;title=Unity%E5%BC%80%E5%8F%91%EF%BC%9A%E4%B8%A4%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%A4%96%E7%9B%AE%E6%A0%87%E7%82%B9%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95%EF%BC%9A%E6%9C%AC%E6%96%87%E5%B0%86%E4%BB%8B%E7%BB%8D%E4%B8%A4%E7%A7%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E5%B1%8F%E5%B9%95%E5%A4%96%E7%9B%AE%E6%A0%87%E7%82%B9%E6%A0%87%E8%AE%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%88%86%E5%88%AB%E5%AF%B9%E5%BA%94%E3%80%8A%E5%AE%88%E6%9C%9B%E5%85%88%E9%94%8B%E3%80%8B%E5%8F%8A%E5%A4%A7%E9%83%A8%E5%88%86%E7%AC%AC%E4%B8%80%E4%BA%BA%E7%A7%B0%E6%B8%B8%E6%88%8F%E3%80%82&amp;url=https://indienova.com/indie-game-development/unity-off-screen-objective-marker/" class="social-icon si-borderless si-linkedin" data-toggle="tooltip" data-placement="top" title="" target="_blank" data-original-title="分享到 Linkedin">
+                            <i class="icon-linkedin"></i><i class="icon-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                    </div>
+    </div>
+
+    <!-- Author -->
+    <div class="container">
+        <div class="postcontent clearfix indienova-related">
+            <div class="indienova-author topmargin-sm">
+                                <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/a-6425193-7Xx2yXNBx300.jpg" class="img-circle" width="100" height="100">
+                <h3><a href="https://indienova.com/u/quin7et">Quin7et</a>&nbsp;
+                    <!-- Single button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            作者 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://indienova.com/u/quin7et"> <i class="icon-line2-user"></i> 查看作者主页</a></li>
+                            <li><a href="https://indienova.com/author/quin7et/"> <i class="icon-line2-notebook"></i> 查看作者文章</a></li>
+                        </ul>
+                    </div>
+                </h3>
+                <p>&nbsp;</p>
+                <div class="author-social bottommargin-sm">
+                                    </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+                    <div class="sidebar col_last blog-sidebar">
+                            </div>
+            </div>
+    <!-- End of Author -->
+
+    <!-- Related -->
+    <div class="bottommargin-sm indienova-title-mini">
+        <div class="container clearfix">
+            <h1>您可能还会对这些文章感兴趣</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="postcontent clearfix indienova-related">
+            <div id="oc-portfolio" class="owl-carousel portfolio-carousel portfolio-notitle owl-theme owl-loaded">
+
+                                    
+                                    
+                                    
+                                    
+                                    
+                
+            <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-720px, 0px, 0px); transition: all 0s ease 0s; width: 2740px; padding-left: 50px; padding-right: 50px;"><div class="owl-item cloned" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/unity-2d-features-from-2017-2019/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-1263Wx-Unity-2D.jpg_t205" alt="【风农视频】Unity 2D 新功能盘点，从 2017 到 2019">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/unity-2d-features-from-2017-2019/" title="【风农视频】Unity 2D 新功能盘点，从 2017 到 2019">【风农视频】Unity 2D 新功能盘点，从 2017 到 2019</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item cloned" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/unity-tips-and-tricks-5/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-37108w-Unity-Tips-Tricks-5.jpg_t205" alt="Unity 使用技巧集合 #5">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/unity-tips-and-tricks-5/" title="Unity 使用技巧集合 #5">Unity 使用技巧集合 #5</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item cloned" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/extending-unity-for-beginners/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-9775PZ-Unity.jpg_t205" alt="Unity 拓展编辑器入门指南">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/extending-unity-for-beginners/" title="Unity 拓展编辑器入门指南">Unity 拓展编辑器入门指南</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item active" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-news/unity-5-announced/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/Unity5.jpg_t205" alt="次世代光照体验：Unity 5面世，功能系统全升级">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-news/unity-5-announced/" title="次世代光照体验：Unity 5面世，功能系统全升级">次世代光照体验：Unity 5面世，功能系统全升级</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item active" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/static-lighting-with-light-probes/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-5715PH-Header_Probe-Lit.jpg_t205" alt="使用光照探针实现静态光照">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/static-lighting-with-light-probes/" title="使用光照探针实现静态光照">使用光照探针实现静态光照</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item active" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/unity-2d-features-from-2017-2019/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-1263Wx-Unity-2D.jpg_t205" alt="【风农视频】Unity 2D 新功能盘点，从 2017 到 2019">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/unity-2d-features-from-2017-2019/" title="【风农视频】Unity 2D 新功能盘点，从 2017 到 2019">【风农视频】Unity 2D 新功能盘点，从 2017 到 2019</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/unity-tips-and-tricks-5/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-37108w-Unity-Tips-Tricks-5.jpg_t205" alt="Unity 使用技巧集合 #5">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/unity-tips-and-tricks-5/" title="Unity 使用技巧集合 #5">Unity 使用技巧集合 #5</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/extending-unity-for-beginners/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-9775PZ-Unity.jpg_t205" alt="Unity 拓展编辑器入门指南">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/extending-unity-for-beginners/" title="Unity 拓展编辑器入门指南">Unity 拓展编辑器入门指南</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item cloned" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-news/unity-5-announced/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/Unity5.jpg_t205" alt="次世代光照体验：Unity 5面世，功能系统全升级">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-news/unity-5-announced/" title="次世代光照体验：Unity 5面世，功能系统全升级">次世代光照体验：Unity 5面世，功能系统全升级</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item cloned" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/static-lighting-with-light-probes/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-5715PH-Header_Probe-Lit.jpg_t205" alt="使用光照探针实现静态光照">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/static-lighting-with-light-probes/" title="使用光照探针实现静态光照">使用光照探针实现静态光照</a></h3>
+                            </div>
+                        </div>
+                    </div></div><div class="owl-item cloned" style="width: 220px; margin-right: 20px;"><div class="oc-item">
+                        <div class="iportfolio">
+                            <div class="portfolio-image">
+                                <a href="https://indienova.com/indie-game-development/unity-2d-features-from-2017-2019/">
+                                    <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/head-1263Wx-Unity-2D.jpg_t205" alt="【风农视频】Unity 2D 新功能盘点，从 2017 到 2019">
+                                    <div class="portfolio-overlay"></div>
+                                </a>
+                            </div>
+                            <div class="portfolio-desc">
+                                <h3><a href="https://indienova.com/indie-game-development/unity-2d-features-from-2017-2019/" title="【风农视频】Unity 2D 新功能盘点，从 2017 到 2019">【风农视频】Unity 2D 新功能盘点，从 2017 到 2019</a></h3>
+                            </div>
+                        </div>
+                    </div></div></div></div><div class="owl-controls"><div class="owl-nav"><div class="owl-prev" style=""><i class="icon-angle-left"></i></div><div class="owl-next" style=""><i class="icon-angle-right"></i></div></div><div class="owl-dots" style="display: none;"></div></div></div>
+            <div class="clear"></div>
+        </div>
+        <div class="sidebar col_last blog-sidebar indienova-tags bottommargin-sm">
+                                                <span class="label label-info"><a href="https://indienova.com/tag/unity/">Unity</a></span>
+                                    </div>
+    </div>
+
+
+
+    <!-- 评论 -->
+            <!--Comments-->
+        <a name="comments"></a>
+
+                    <div class="bottommargin-sm indienova-title-mini topmargin-sm">
+                <div class="container clearfix">
+                    <h1>参与此文章的讨论</h1>
+                </div>
+            </div>
+                <div class="container">
+            <div class="postcontent clearfix indienova-comments">
+                                        <p>暂无关于此文章的评论。</p>
+                    
+                                <!-- Comment Form
+                ============================================= -->
+                <a name="makeComment"></a>
+                <div id="respond" class="clearfix">
+                                                <div class="text-center">
+                                <h4>您需要登录或者注册后才能发表评论</h4>
+                                                                    
+                                        <a href="https://indienova.com/get/login" data-lightbox="ajax" class="button button-rounded button-reveal button-large button-green tright"><i class="icon-line2-ghost"></i><span>登录／注册</span></a>
+                                    
+                                                                </div>
+                        
+                    
+                </div><!-- #respond end -->
+            </div>
+
+            <div class="sidebar col_last">
+                            </div>
+        </div></div>
+<script src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/bootstrap-typeahead.min.js.下载"></script>
+<div id="failed-message" data-notify-position="top-right" data-notify-type="error" data-notify-msg="&lt;i class=&#39;icon-minus-sign&#39;&gt;&lt;/i&gt; 操作失败！请通知管理人员。"></div>
+<script>
+
+    var aid = '8498';
+
+    function pageJS() {
+        var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var bg = $('.indienova-title-bg');
+        if (w <= 991) {
+            bg.attr('data-stellar-vertical-offset', '226');
+        }
+
+        var h4s = $('.indienova-single-post h4');
+        if (h4s.length > 0) {
+            $('#side-title-image').after('<div class="scrollspy"><ul id="indienova-header-list" class="nav hidden-xs hidden-sm hidden-ms" data-spy="affix"></ul></div>');
+            if ($('.indienova-single-post').html().trim().substr(1, 2) != 'h4') {
+                $('.indienova-single-post').prepend('<h4>引言</h4>');
+            }
+
+            h4s = $('.indienova-single-post h4');
+            for(var i=0; i<h4s.length; i++) {
+                $(h4s[i]).attr('id', 'iah-' + i);
+                var title = ($(h4s[i]).html()).replace(/\'/g, "").replace(/\"/g, "");
+                title = title.replace(/<br>/g, " - ");
+                title = title.replace(/<small>/g, "");
+                title = title.replace(/<\/small>/g, "");
+                title = title.replace(/<strong>/g, "");
+                title = title.replace(/<\/strong>/g, "");
+                $('#indienova-header-list').append('<li><a href="#iah-' + i + '" title="' + title + '">' + $(h4s[i]).html() + '</a></li>');
+            }
+            $('#indienova-header-list').append('<li><a href="#comments" title="直接查看文章评论"><i class="icon-chat-2"></i> 文章评论</a><li>');
+
+            $('#indienova-header-list').affix({
+                offset: {
+                    top: $('#indienova-header-list').offset().top - 140,
+                    bottom: ($('footer').outerHeight(true) + $('#indienova-misc').outerHeight(true)) + 180
+                }
+            });
+        }
+
+        var ocPortfolio = $("#oc-portfolio");
+
+        ocPortfolio.owlCarousel({
+            margin: 20,
+            nav: true,
+            stagePadding: 50,
+            loop: 'true',
+            navText: ['<i class="icon-angle-left"></i>','<i class="icon-angle-right"></i>'],
+            autoplay: false,
+            autoplayHoverPause: true,
+            dots: false,
+            responsive:{
+            0:{ items:1 },
+            600:{ items:2 },
+            1000:{ items:3 }
+        }
+    });
+
+        /*
+                  */
+
+        /* spoiler */
+
+        $('.spoiler-div').on('click', function() {
+            $(this).find('.spoiler-content').removeClass('spoiler-content');
+            $(this).find('.spoiler-info').remove();
+            $(this).removeClass('spoiler-div');
+            $(this).unbind('click');
+        });
+
+        /* more users */
+        $('#moreLikedUsers').on('click', function() {
+            $(this).remove();
+            $('.hidden-user').removeClass('hidden-user');
+        });
+
+        /* more games */
+        $('#moreRelatedGames').on('click', function() {
+            $('.related-games-holder').find('div').removeClass('initHidden');
+            $(this).parent().parent().remove();
+        });
+    }
+</script>            </div>
+        </section><!-- #content end -->
+
+                <!-- Footer
+        ============================================= -->
+        <a name="footer"></a>
+        <footer id="footer" class="dark">
+
+            <div class="container">
+
+                <!-- Footer Widgets
+                ============================================= -->
+                <div class="footer-widgets-wrap clearfix">
+
+                    <div class="col_one_fourth">
+
+                        <div class="widget clearfix">
+
+                            <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/indienova_footer_new.png" srcset="https://static.indienova.com/assets/images/logos/indienova_footer_new@2x.png 2x" alt="indeinova" class="footer-logo">
+
+                            <p class="nobottommargin">由喜爱<strong>独立游戏</strong>，追求游戏乐趣的我们建立于 <strong>2013</strong> 年。</p>
+
+                            <a href="http://weibo.com/indienova" class="social-icon si-small si-rounded topmargin-sm si-weibo" target="_blank">
+                                <i class="icon-cn-weibo"></i>
+                                <i class="icon-cn-weibo"></i>
+                            </a>
+
+                            <a href="https://static.indienova.com/assets/images/QR_WeChat-new.jpg" data-lightbox="image" class="social-icon si-small si-rounded topmargin-sm si-wechat" data-toggle="tooltip" data-placement="top" title="" data-original-title="微信号：indienova">
+                                <i class="icon-cn-wechat"></i>
+                                <i class="icon-cn-wechat"></i>
+                            </a>
+
+                            <a href="https://static.indienova.com/assets/images/QR_QQ_4.jpg" data-lightbox="image" class="social-icon si-small si-rounded topmargin-sm si-qq" data-toggle="tooltip" data-placement="top" title="" data-original-title="QQ 群：714980405（点击查看全部群聊）">
+                                <i class="icon-cn-qq"></i>
+                                <i class="icon-cn-qq"></i>
+                            </a>
+
+                            <a href="http://zhuanlan.zhihu.com/indienova" class="social-icon si-small si-rounded topmargin-sm si-intensedebate" data-toggle="tooltip" data-placement="top" title="" data-original-title="知乎专栏" target="_blank">
+                                <i class="icon-cn-zhihu"></i>
+                                <i class="icon-cn-zhihu"></i>
+                            </a>
+
+                            <div class="clearfix"></div>
+
+                            <a href="http://steamcommunity.com/id/indienova/" class="social-icon si-small si-rounded notopmargin si-appstore" target="_blank">
+                                <i class="icon-steam"></i>
+                                <i class="icon-steam"></i>
+                            </a>
+
+                            <a href="https://www.facebook.com/Indienova-1689611754692764/" class="social-icon si-small si-rounded notopmargin si-facebook" target="_blank">
+                                <i class="icon-facebook"></i>
+                                <i class="icon-facebook"></i>
+                            </a>
+
+                            <a href="https://twitter.com/indienovacn" class="social-icon si-small si-rounded notopmargin si-twitter" target="_blank">
+                                <i class="icon-twitter"></i>
+                                <i class="icon-twitter"></i>
+                            </a>
+
+                            <a href="https://github.com/eastecho" class="social-icon si-small si-rounded notopmargin si-github" target="_blank">
+                                <i class="icon-github"></i>
+                                <i class="icon-github"></i>
+                            </a>
+
+                        </div>
+
+                                                    <p><br><small class="text-muted">ServerID: NOVA-MAIN</small></p>
+                        
+                    </div>
+
+                    <div class="col_one_fourth">
+
+                        <div class="widget widget_links clearfix">
+
+                            <h4>关注我们</h4>
+
+                            <div class="text-center">
+                                <img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/QR_footer.png" width="120" height="120" class="footer-qr">
+                                <p><small>扫描二维码关注微信公众号</small></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col_one_fourth">
+
+                        <div class="widget widget_links clearfix">
+
+                            <h4>容易错过的内容</h4>
+
+                            <ul>
+                                <li><a href="https://indienova.com/usergames">会员开发的游戏</a></li>
+                                <li><a href="https://indienova.com/sp/gameDevResource">游戏开发资源大全</a></li>
+                                <li><a href="https://indienova.com/steam/recommended">推荐的 Steam 游戏</a></li>
+                                <li><a href="https://indienova.com/steam/mustbuy">必买的 Steam 游戏</a></li>
+                                <li><a href="https://indienova.com/blogs/all">会员日志／DevLog</a></li>
+                                <li><a href="https://indienova.com/resource">游戏开发素材</a></li>
+                                <li><a href="https://indienova.com/corp/gutenberg">游戏古登堡计划</a></li>
+                                <li><a href="https://indienova.com/corp/contribute">向 indienova 投稿</a></li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col_one_fourth col_last">
+
+                        <div class="widget quick-contact-widget clearfix">
+
+                            <h4>快速联系我们</h4>
+
+                            <div id="quick-contact-form-result" data-notify-type="success" data-notify-msg="&lt;i class=icon-ok-sign&gt;&lt;/i&gt; 信息已经成功发送！"></div>
+
+                            <form id="quick-contact-form" name="quick-contact-form" action="https://indienova.com/func/quickcontact" method="post" class="quick-contact-form nobottommargin" novalidate="novalidate">
+
+                                <div class="form-process"></div>
+
+                                                                        <p>您可以<a href="https://indienova.com/get/login" data-lightbox="ajax"><strong>注册／登录</strong></a>后再发送信息，以便我们直接通过站内私信快速联系您。</p>
+                                        <div class="input-group divcenter">
+                                            <span class="input-group-addon"><i class="icon-user"></i></span>
+                                            <input type="text" class="required form-control input-block-level" id="quick-contact-form-name" name="quick-contact-form-name" value="" placeholder="您的名字" aria-required="true">
+                                        </div>
+                                        <div class="input-group divcenter">
+                                            <span class="input-group-addon"><i class="icon-email3"></i></span>
+                                            <input type="text" class="required form-control email input-block-level" id="quick-contact-form-email" name="quick-contact-form-email" value="" placeholder="邮件地址" aria-required="true">
+                                        </div>
+                                    
+                                
+                                <textarea class="required form-control input-block-level short-textarea" id="quick-contact-form-message" name="quick-contact-form-message" rows="4" cols="30" placeholder="信息" aria-required="true"></textarea>
+                                <input type="text" class="hidden" id="quick-contact-form-botcheck" name="quick-contact-form-botcheck" value="">
+                                <button type="submit" id="quick-contact-form-submit" name="quick-contact-form-submit" class="btn btn-danger nomargin" value="submit">发送信息</button>
+
+                            </form>
+
+                            <script type="text/javascript">
+
+                                $("#quick-contact-form").validate({
+                                    submitHandler: function(form) {
+                                        $(form).animate({ opacity: 0.4 });
+                                        $(form).find('.form-process').fadeIn();
+                                        $(form).ajaxSubmit({
+                                            target: '#quick-contact-form-result',
+                                            success: function() {
+                                                $(form).animate({ opacity: 1 });
+                                                $(form).find('.form-process').fadeOut();
+                                                $(form).find('.form-control').val('');
+                                                $('#quick-contact-form-result').attr('data-notify-msg', $('#quick-contact-form-result').html()).html('');
+                                                SEMICOLON.widget.notifications($('#quick-contact-form-result'));
+                                            }
+                                        });
+                                    }
+                                });
+
+                            </script>
+
+                        </div>
+
+                    </div>
+
+                </div><!-- .footer-widgets-wrap end -->
+
+            </div>
+
+            <!-- Copyrights
+            ============================================= -->
+            <div id="copyrights">
+
+                <div class="container clearfix">
+
+                    <div class="col_full nobottommargin center">
+                        <div class="copyrights-menu copyright-links clearfix">
+                            <a href="https://indienova.com/corp/privacy">隐私声明</a>/<a href="https://indienova.com/corp/faq">常见问题</a>/<a href="https://indienova.com/corp/about">关于我们</a>/<a href="https://indienova.com/corp/suggestion">联系我们</a>
+                        </div>
+                        <p class="bottommargin10"><small><a href="https://beian.miit.gov.cn/" target="_blank">京 ICP 备 16052096 号</a>
+                            &nbsp;
+                            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010702001852" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/beian.png"> 京公网安备 11010702001852号</a>
+                            <br>增值电信业务经营许可证：<a href="https://beian.miit.gov.cn/" target="_blank">京 B2-20160196</a></small></p>
+                        <p class="nobottommargin">烽火连城（北京）科技有限公司</p>
+                        <p class="nobottommargin">版权所有 © 2013, 2023 indienova 保留所有权利</p>
+                        <!-- GeoTrust True Site[tm] Smart Icon tag. Do not edit. -->
+                        <!--<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" SRC="//smarticon.geotrust.com/si.js"></SCRIPT>-->
+                        <!-- end GeoTrust Smart Icon tag -->
+                        <div class="hidden">
+                            2023-03-18 15:07:23
+                            <script>
+                                var cnzz_s_tag = document.createElement('script');
+                                cnzz_s_tag.type = 'text/javascript';
+                                cnzz_s_tag.async = true;
+                                cnzz_s_tag.charset = 'utf-8';
+                                cnzz_s_tag.src = 'https://w.cnzz.com/c.php?id=1000033182&async=1';
+                                var root_s = document.getElementsByTagName('script')[0];
+                                root_s.parentNode.insertBefore(cnzz_s_tag, root_s);
+                            </script>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!-- #copyrights end -->
+
+        </footer><!-- #footer end -->
+
+        <!--
+
+        <script>
+
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+
+        </script>
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-102514550-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        -->
+    </div><!-- #wrapper end -->
+
+    <!-- Go To Top ============================================= -->
+    <div id="gotoTop" class="icon-angle-up" style="display: block;"></div>
+
+    <!-- Footer Scripts ============================================= -->
+                    <script type="text/javascript" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/audioplayer.js.下载"></script>
+                <script src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/mediaelement-and-player.min.js.下载"></script>
+    <script src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/zh-cn.js.下载"></script>
+                <script src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/jweixin-1.6.0.js.下载"></script>
+    <script type="text/javascript" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/functions.js.下载"></script>
+    <script type="text/javascript" src="./Unity开发：两种屏幕外目标点标记的实现方法 _ indienova 独立游戏_files/main.js.下载"></script>
+
+                <script>
+                $(document).ready(function () {
+                    /*
+                                             */
+                    wx.config({
+                        debug: false,
+                        appId: 'wx38efb8b5dace1256',
+                        timestamp: '1679123243',
+                        nonceStr: 'aCXA9gpypO7kuCSQ',
+                        signature: '3b58fefe1c2c86116602fe2a592ac32ae40f1dda',
+                        jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData']
+                    });
+
+                    // 微信
+                    wx.ready(function() {
+
+                        wx.updateTimelineShareData({
+                            title: $('title').html(),
+                            link: location.href.split('#')[0],
+                            imgUrl: 'https://hive.indienova.com/farm/article/headpic/2023/01/head-2869Np-banner.jpg',
+                            success: function() {},
+                            cancel: function() {}
+                        });
+
+                        wx.updateAppMessageShareData({
+                            title: $('title').html(),
+                            desc: '本文将介绍两种不同的屏幕外目标点标记的实现方式，分别对应《守望先锋》及大部分第一人称游戏。',
+                            link: location.href.split('#')[0],
+                            imgUrl: 'https://hive.indienova.com/farm/article/headpic/2023/01/head-2869Np-banner.jpg',
+                            type: '',
+                            dataUrl: ''
+                        });
+
+                    });
+
+                    /*
+                                             */
+
+                    $('pre').each(function(index){
+                        if ($(this)[0].style) {
+                            if ($(this)[0].style.length == 0)
+                                $(this).addClass('prettyprint');
+                        }
+                    });
+
+                    window.prettyPrint && prettyPrint();
+                });
+            </script>
+        
+    
+<div id="iv-container"><div class="iv-loader"></div> <div class="iv-snap-view"><div class="iv-snap-image-wrap"><div class="iv-snap-handle"></div></div><div class="iv-zoom-slider"><div class="iv-zoom-handle"></div></div></div><div class="iv-image-view"><div class="iv-image-wrap"></div></div><div class="iv-close"></div><div></div></div></body></html>
