@@ -1,0 +1,1 @@
+https://github.com/greggman/unity-webgl-copy-and-paste
