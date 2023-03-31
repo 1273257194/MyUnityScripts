@@ -1,1 +1,2 @@
 https://github.com/greggman/unity-webgl-copy-and-paste
+https://github.com/kou-yeung/WebGLInput
